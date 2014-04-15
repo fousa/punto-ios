@@ -8,6 +8,9 @@
 
 #import "TextTableViewCell.h"
 
+@interface TextTableViewCell () <UITextFieldDelegate>
+@end
+
 @implementation TextTableViewCell {
     UITextField *_field;
 }
@@ -17,6 +20,8 @@
     
     _field = [[UITextField alloc] initWithFrame:(CGRect) { 0, 0, 150.0f, 30.0f }];
     _field.textAlignment = NSTextAlignmentRight;
+    _field.delegate = self;
+    _field.returnKeyType = UIReturnKeyDone;
     self.accessoryView = _field;
     
     return self;
@@ -40,6 +45,13 @@
 
 - (BOOL)becomeFirstResponder {
     return [_field becomeFirstResponder];
+}
+
+#pragma mark - Field delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [_field resignFirstResponder];
+    return YES;
 }
 
 @end
