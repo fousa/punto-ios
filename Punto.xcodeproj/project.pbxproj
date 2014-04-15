@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B738AB48F124E5CAA0B4E5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25329678405444AB6EF1472 /* libPods.a */; };
+		9D28E48518FD6F2C002173D2 /* SPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48418FD6F2C002173D2 /* SPClient.m */; };
 		9D46A07518FD6A9D00C5B228 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D46A07418FD6A9D00C5B228 /* MapViewController.m */; };
 		9D46A07718FD6C0500C5B228 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D46A07618FD6C0500C5B228 /* MapKit.framework */; };
 		9D88D40518FD6405000F6629 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88D40418FD6405000F6629 /* Foundation.framework */; };
@@ -21,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		9D28E48318FD6F2C002173D2 /* SPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPClient.h; sourceTree = "<group>"; };
+		9D28E48418FD6F2C002173D2 /* SPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPClient.m; sourceTree = "<group>"; };
 		9D46A07318FD6A9D00C5B228 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9D46A07418FD6A9D00C5B228 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		9D46A07618FD6C0500C5B228 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -55,6 +58,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D28E48218FD6F15002173D2 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				9D28E48318FD6F2C002173D2 /* SPClient.h */,
+				9D28E48418FD6F2C002173D2 /* SPClient.m */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
 		9D46A07218FD698D00C5B228 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +112,7 @@
 			children = (
 				9D88D41318FD6405000F6629 /* AppDelegate.h */,
 				9D88D41418FD6405000F6629 /* AppDelegate.m */,
+				9D28E48218FD6F15002173D2 /* SDK */,
 				9D46A07218FD698D00C5B228 /* Controllers */,
 				9D88D43C18FD642A000F6629 /* UI */,
 				9D88D40B18FD6405000F6629 /* Supporting Files */,
@@ -228,6 +241,7 @@
 				9D46A07518FD6A9D00C5B228 /* MapViewController.m in Sources */,
 				9D88D41518FD6405000F6629 /* AppDelegate.m in Sources */,
 				9D88D41118FD6405000F6629 /* main.m in Sources */,
+				9D28E48518FD6F2C002173D2 /* SPClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

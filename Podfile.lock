@@ -1,12 +1,33 @@
 PODS:
+  - AFNetworking (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.1):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.1)
+  - AFNetworking/Security (2.2.1)
+  - AFNetworking/Serialization (2.2.1)
+  - AFNetworking/UIKit (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - coby (0.0.1)
   - Masonry (0.4.0)
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.2.1)
   - coby (~> 0.0.1)
   - Masonry (~> 0.4)
 
 SPEC CHECKSUMS:
+  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   coby: aadb6abee8b5b8ce0671a4dc042adcc16fe084c9
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
 
