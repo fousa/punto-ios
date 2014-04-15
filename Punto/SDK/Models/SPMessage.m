@@ -38,4 +38,10 @@
     }];
 }
 
+#pragma mark - Coordinates
+
+- (CLLocationCoordinate2D)coordinate {
+    return CLLocationCoordinate2DMake(_latitude.doubleValue, _longitude.doubleValue);
+}
+
 @end

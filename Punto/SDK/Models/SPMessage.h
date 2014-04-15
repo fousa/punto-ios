@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Fousa. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
+
 #import "SPModel.h"
 
 @interface SPMessage : SPModel
@@ -18,4 +20,6 @@
 @property (nonatomic, strong) NSString *ID;
 
 + (NSArray *)parseModels:(NSDictionary *)params;
+
+- (CLLocationCoordinate2D)coordinate;
 @end
