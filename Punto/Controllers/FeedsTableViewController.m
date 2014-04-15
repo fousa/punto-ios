@@ -37,6 +37,12 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Layout
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 #pragma mark - Actions
 
 - (void)didPressClose:(id)sender {

@@ -58,6 +58,12 @@
     [_openButton sizeToFit];
 }
 
+#pragma mark - Layout
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 #pragma mark - Feeds Controller
 
 - (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {

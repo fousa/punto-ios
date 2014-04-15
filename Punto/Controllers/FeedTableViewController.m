@@ -43,6 +43,12 @@
     [cell becomeFirstResponder];
 }
 
+#pragma mark - Layout
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 #pragma mark - Actions
 
 - (void)didPressCancel:(id)sender {
