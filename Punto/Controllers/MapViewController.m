@@ -56,8 +56,6 @@
     
     [_openButton setTitle:NSLocalizedString(@"Open", @"Open") forState:UIControlStateNormal];
     [_openButton sizeToFit];
-    
-    
 }
 
 #pragma mark - Feeds Controller
@@ -67,7 +65,7 @@
     
     __weak MapViewController *weakSelf = self;
     _client = [[SPClient alloc] initWithBaseURL:feed.URL];
-    [_client fetchMessagesWithCompletion:^(NSError *error, id responseObject) {
+    [_client startfetchingMessagesWithCompletion:^(NSError *error, id responseObject) {
         if (!error) {
             [SPParser parse:responseObject completion:^(NSError *error, MKPolyline *path) {
                 if (!error) [weakSelf renderPath:path];

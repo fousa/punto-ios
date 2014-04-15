@@ -9,5 +9,5 @@
 #import "AFHTTPRequestOperationManager.h"
 
 @interface SPClient : AFHTTPRequestOperationManager
-- (void)fetchMessagesWithCompletion:(void(^)(NSError *error, id responseObject))completion;
+- (void)startfetchingMessagesWithCompletion:(void(^)(NSError *error, id responseObject))completion;
 @end
