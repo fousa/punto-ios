@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B738AB48F124E5CAA0B4E5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25329678405444AB6EF1472 /* libPods.a */; };
+		48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44418FDA30000581F7B /* FeedsTableViewController.m */; };
 		9D0838CA18FD7926009963C2 /* ls8.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D0838C918FD7926009963C2 /* ls8.json */; };
 		9D0838CF18FD7BDB009963C2 /* SPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0838CE18FD7BDB009963C2 /* SPParser.m */; };
 		9D0838D118FD7D5D009963C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0838D018FD7D5D009963C2 /* CoreLocation.framework */; };
@@ -28,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		48FAB44318FDA30000581F7B /* FeedsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsTableViewController.h; sourceTree = "<group>"; };
+		48FAB44418FDA30000581F7B /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
 		9D0838C918FD7926009963C2 /* ls8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ls8.json; sourceTree = "<group>"; };
 		9D0838CB18FD7957009963C2 /* CommonMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
 		9D0838CD18FD7BDB009963C2 /* SPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPParser.h; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 			children = (
 				9D46A07318FD6A9D00C5B228 /* MapViewController.h */,
 				9D46A07418FD6A9D00C5B228 /* MapViewController.m */,
+				48FAB44318FDA30000581F7B /* FeedsTableViewController.h */,
+				48FAB44418FDA30000581F7B /* FeedsTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				9D88D41518FD6405000F6629 /* AppDelegate.m in Sources */,
 				9D88D41118FD6405000F6629 /* main.m in Sources */,
 				9D28E48918FD73F8002173D2 /* SPModel.m in Sources */,
+				48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */,
 				9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */,
 				9D28E49018FD7500002173D2 /* NSString+SPFormatter.m in Sources */,
 				9D28E48518FD6F2C002173D2 /* SPClient.m in Sources */,

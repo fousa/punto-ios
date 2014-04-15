@@ -9,6 +9,7 @@
 #import <MapKit/MapKit.h>
 
 #import "MapViewController.h"
+#import "FeedsTableViewController.h"
 
 #import "SPClient.h"
 #import "SPParser.h"
@@ -71,6 +72,9 @@
 #pragma mark - Actions
 
 - (void)didPressOpen:(id)sender {
+    FeedsTableViewController *feedsController = [FeedsTableViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedsController];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Map
