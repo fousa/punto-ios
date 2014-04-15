@@ -61,6 +61,11 @@
     TextTableViewCell *linkCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     __weak NSString *weakLink = [linkCell value];
     
+    if (IsEmpty(weakLink) || IsEmpty(weakName)) {
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"You should fill in all the fields in order to save the feed.", @"You should fill in all the fields in order to save the feed.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
+        return;
+    }
+    
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
         Feed *feed = nil;
         if (_feed) {
