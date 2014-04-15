@@ -1,0 +1,25 @@
+# xcode noise
+build/*
+*.pbxuser
+*.mode1v3
+*.xcworkspace
+xcuserdata
+project.xcworkspace/*
+xcuserdata/*
+.idea/*
+
+# BetaBuilder noise
+build.output
+pkg/
+
+# osx noise
+.DS_Store
+profile
+/carsharing/.DS_Store
+/carsharing.xcodeproj/xcuserdata/fousa.xcuserdatad/xcschemes/carsharing.xcscheme
+/carsharing.xcodeproj/xcuserdata/fousa.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+.ipa
+
+*.ipa
+
+*.app.dSYM.zip
