@@ -83,6 +83,7 @@
     if (tableView.editing) {
         [self presentFeedController:_feeds[indexPath.row]];
     } else {
+        if (_delegate) [_delegate feedsController:self didSelectFeed:_feeds[indexPath.row]];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

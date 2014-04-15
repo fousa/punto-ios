@@ -14,13 +14,17 @@
 #import "SPClient.h"
 #import "SPParser.h"
 
-@interface MapViewController () <MKMapViewDelegate>
+#import "Feed.h"
+
+@interface MapViewController () <MKMapViewDelegate, FeedsTableViewControllerDelegate>
 @end
 
 @implementation MapViewController {
     MKMapView *_mapView;
     
     UIButton *_openButton;
+    
+    SPClient *_client;
 }
 
 - (void)viewDidLoad {
@@ -53,36 +57,45 @@
     [_openButton setTitle:NSLocalizedString(@"Open", @"Open") forState:UIControlStateNormal];
     [_openButton sizeToFit];
     
-    __weak MapViewController *weakSelf = self;
     
-    NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"ls8" withExtension:@"json"];
-    SPClient *client = [[SPClient alloc] initWithBaseURL:fileURL];
-    [client fetchMessagesWithCompletion:^(NSError *error, id responseObject) {
-        NSLog(@"--- fetch error: %@", error);
-        NSLog(@"--- responseObject: %@", responseObject);
+}
+
+#pragma mark - Feeds Controller
+
+- (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
+    [self resetData];
+    
+    __weak MapViewController *weakSelf = self;
+    _client = [[SPClient alloc] initWithBaseURL:feed.URL];
+    [_client fetchMessagesWithCompletion:^(NSError *error, id responseObject) {
         if (!error) {
             [SPParser parse:responseObject completion:^(NSError *error, MKPolyline *path) {
-                NSLog(@"--- parse error: %@", error);
                 if (!error) [weakSelf renderPath:path];
             }];
         }
     }];
+    
 }
 
 #pragma mark - Actions
 
 - (void)didPressOpen:(id)sender {
     FeedsTableViewController *feedsController = [FeedsTableViewController new];
+    feedsController.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedsController];
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Map
 
-- (void)renderPath:(MKPolyline *)path {
+- (void)resetData {
     [_mapView removeOverlays:_mapView.overlays];
-    [_mapView addOverlay:path];
+}
+
+- (void)renderPath:(MKPolyline *)path {
+    [self resetData];
     
+    [_mapView addOverlay:path];
     [_mapView setVisibleMapRect:path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
 }
 
