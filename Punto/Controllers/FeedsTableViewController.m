@@ -8,6 +8,8 @@
 
 #import "FeedsTableViewController.h"
 
+#import "Feed.h"
+
 @interface FeedsTableViewController ()
 @end
 
@@ -28,7 +30,7 @@
     
     [self setLeftBarButtonItem:animated];
     
-    _feeds = @[].mutableCopy;
+    _feeds = [Feed MR_findAllSortedBy:@"name" ascending:YES].mutableCopy;
 }
 
 #pragma mark - Actions

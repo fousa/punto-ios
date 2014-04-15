@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3B738AB48F124E5CAA0B4E5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25329678405444AB6EF1472 /* libPods.a */; };
 		48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44418FDA30000581F7B /* FeedsTableViewController.m */; };
+		48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44718FDB9B700581F7B /* Punto.xcdatamodeld */; };
+		48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44B18FDBA8D00581F7B /* _Feed.m */; };
+		48FAB44F18FDBA8D00581F7B /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44D18FDBA8D00581F7B /* Feed.m */; };
 		9D0838CA18FD7926009963C2 /* ls8.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D0838C918FD7926009963C2 /* ls8.json */; };
 		9D0838CF18FD7BDB009963C2 /* SPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0838CE18FD7BDB009963C2 /* SPParser.m */; };
 		9D0838D118FD7D5D009963C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0838D018FD7D5D009963C2 /* CoreLocation.framework */; };
@@ -31,6 +34,11 @@
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		48FAB44318FDA30000581F7B /* FeedsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsTableViewController.h; sourceTree = "<group>"; };
 		48FAB44418FDA30000581F7B /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
+		48FAB44818FDB9B700581F7B /* Punto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Punto.xcdatamodel; sourceTree = "<group>"; };
+		48FAB44A18FDBA8D00581F7B /* _Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Feed.h; sourceTree = "<group>"; };
+		48FAB44B18FDBA8D00581F7B /* _Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Feed.m; sourceTree = "<group>"; };
+		48FAB44C18FDBA8D00581F7B /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
+		48FAB44D18FDBA8D00581F7B /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		9D0838C918FD7926009963C2 /* ls8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ls8.json; sourceTree = "<group>"; };
 		9D0838CB18FD7957009963C2 /* CommonMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
 		9D0838CD18FD7BDB009963C2 /* SPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPParser.h; sourceTree = "<group>"; };
@@ -79,6 +87,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		48FAB44618FDB9A600581F7B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				48FAB45018FDBA9000581F7B /* Generated */,
+				48FAB44C18FDBA8D00581F7B /* Feed.h */,
+				48FAB44D18FDBA8D00581F7B /* Feed.m */,
+				48FAB44718FDB9B700581F7B /* Punto.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		48FAB45018FDBA9000581F7B /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				48FAB44A18FDBA8D00581F7B /* _Feed.h */,
+				48FAB44B18FDBA8D00581F7B /* _Feed.m */,
+			);
+			name = Generated;
+			sourceTree = "<group>";
+		};
 		9D0838C618FD791A009963C2 /* Dummy */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +204,7 @@
 				9D88D41318FD6405000F6629 /* AppDelegate.h */,
 				9D88D41418FD6405000F6629 /* AppDelegate.m */,
 				9D28E48218FD6F15002173D2 /* SDK */,
+				48FAB44618FDB9A600581F7B /* Models */,
 				9D46A07218FD698D00C5B228 /* Controllers */,
 				9D0838CC18FD7BC1009963C2 /* Components */,
 				9D88D43C18FD642A000F6629 /* UI */,
@@ -312,7 +341,10 @@
 				9D28E48918FD73F8002173D2 /* SPModel.m in Sources */,
 				48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */,
 				9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */,
+				48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */,
 				9D28E49018FD7500002173D2 /* NSString+SPFormatter.m in Sources */,
+				48FAB44F18FDBA8D00581F7B /* Feed.m in Sources */,
+				48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */,
 				9D28E48518FD6F2C002173D2 /* SPClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +485,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		48FAB44718FDB9B700581F7B /* Punto.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				48FAB44818FDB9B700581F7B /* Punto.xcdatamodel */,
+			);
+			currentVersion = 48FAB44818FDB9B700581F7B /* Punto.xcdatamodel */;
+			path = Punto.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9D88D3F918FD6404000F6629 /* Project object */;
 }
