@@ -23,3 +23,5 @@ profile
 *.ipa
 
 *.app.dSYM.zip
+
+/Pods/
