@@ -57,6 +57,8 @@
 - (void)renderPath:(MKPolyline *)path {
     [_mapView removeOverlays:_mapView.overlays];
     [_mapView addOverlay:path];
+    
+    [_mapView setVisibleMapRect:path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
 }
 
 #pragma mark Map delegate
@@ -64,7 +66,7 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     MKPolylineRenderer *pathView = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
     pathView.strokeColor = [UIColor redColor];
-    pathView.lineWidth = 4.0;
+    pathView.lineWidth = 3.0;
     
     return pathView;
 }
