@@ -7,6 +7,7 @@
 //
 
 #import "FeedsTableViewController.h"
+#import "FeedTableViewController.h"
 
 #import "Feed.h"
 
@@ -31,6 +32,7 @@
     [self setLeftBarButtonItem:animated];
     
     _feeds = [Feed MR_findAllSortedBy:@"name" ascending:YES].mutableCopy;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Actions
@@ -40,6 +42,9 @@
 }
 
 - (void)didPressAdd:(id)sender {
+    FeedTableViewController *feedController = [FeedTableViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -53,8 +58,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCellIdentifier];
-}
-    cell.textLabel.text = @(indexPath.row).stringValue;
+    }
+    Feed *feed = _feeds[indexPath.row];
+    cell.textLabel.text = feed.name;
     return cell;
 }
 

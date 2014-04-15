@@ -1,0 +1,106 @@
+//
+//  FeedTableViewController.m
+//  Punto
+//
+//  Created by Jelle Vandenbeeck on 15/04/14.
+//  Copyright (c) 2014 Fousa. All rights reserved.
+//
+
+#import "FeedTableViewController.h"
+
+#import "TextTableViewCell.h"
+
+#import "Feed.h"
+
+@interface FeedTableViewController ()
+@end
+
+@implementation FeedTableViewController
+
+- (id)init {
+    if (!(self = [super initWithStyle:UITableViewStyleGrouped])) return nil;
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.title = NSLocalizedString(@"New feed", @"New feed");
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(didPressCancel:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(didPressSave:)];
+    
+    [self.tableView reloadData];
+    
+    TextTableViewCell *cell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [cell becomeFirstResponder];
+}
+
+#pragma mark - Actions
+
+- (void)didPressCancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didPressSave:(id)sender {
+    TextTableViewCell *nameCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    __weak NSString *weakName = [nameCell value];
+    TextTableViewCell *linkCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    __weak NSString *weakLink = [linkCell value];
+    
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        Feed *feed = [Feed MR_createInContext:localContext];
+        feed.name = weakName;
+        feed.link = weakLink;
+    }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2) {
+        return [self cellForSwitch:indexPath];
+    } else {
+        return [self cellForText:indexPath];
+    }
+}
+
+#pragma mark - Cells
+
+- (UITableViewCell *)cellForText:(NSIndexPath *)indexPath {
+    static NSString *TextCellIdentifier = @"TextCell";
+    TextTableViewCell *cell = (TextTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:TextCellIdentifier];
+    if (!cell) {
+        cell = [[TextTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TextCellIdentifier];
+    }
+    if (indexPath.row == 0) {
+        cell.textLabel.text = NSLocalizedString(@"Name", @"Name");
+        cell.placeholder = NSLocalizedString(@"Pick a name", @"Pick a name");
+    } else {
+        cell.textLabel.text = NSLocalizedString(@"Spot link", @"Spot link");
+        cell.placeholder = NSLocalizedString(@"Paste a Spot link", @"Paste a Spot link");
+    }
+    return cell;
+}
+
+- (UITableViewCell *)cellForSwitch:(NSIndexPath *)indexPath {
+    static NSString *SwitchCellIdentifier = @"SwitchCell";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:SwitchCellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SwitchCellIdentifier];
+    }
+    cell.textLabel.text = NSLocalizedString(@"Notify movement", @"Notify movement");
+    return cell;
+}
+
+@end

@@ -12,6 +12,8 @@
 		48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44718FDB9B700581F7B /* Punto.xcdatamodeld */; };
 		48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44B18FDBA8D00581F7B /* _Feed.m */; };
 		48FAB44F18FDBA8D00581F7B /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44D18FDBA8D00581F7B /* Feed.m */; };
+		48FAB45318FDBCE600581F7B /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB45218FDBCE600581F7B /* FeedTableViewController.m */; };
+		48FAB45618FDBF4A00581F7B /* TextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB45518FDBF4A00581F7B /* TextTableViewCell.m */; };
 		9D0838CA18FD7926009963C2 /* ls8.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D0838C918FD7926009963C2 /* ls8.json */; };
 		9D0838CF18FD7BDB009963C2 /* SPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0838CE18FD7BDB009963C2 /* SPParser.m */; };
 		9D0838D118FD7D5D009963C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0838D018FD7D5D009963C2 /* CoreLocation.framework */; };
@@ -39,6 +41,10 @@
 		48FAB44B18FDBA8D00581F7B /* _Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Feed.m; sourceTree = "<group>"; };
 		48FAB44C18FDBA8D00581F7B /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		48FAB44D18FDBA8D00581F7B /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
+		48FAB45118FDBCE600581F7B /* FeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewController.h; sourceTree = "<group>"; };
+		48FAB45218FDBCE600581F7B /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
+		48FAB45418FDBF4A00581F7B /* TextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextTableViewCell.h; sourceTree = "<group>"; };
+		48FAB45518FDBF4A00581F7B /* TextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextTableViewCell.m; sourceTree = "<group>"; };
 		9D0838C918FD7926009963C2 /* ls8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ls8.json; sourceTree = "<group>"; };
 		9D0838CB18FD7957009963C2 /* CommonMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
 		9D0838CD18FD7BDB009963C2 /* SPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPParser.h; sourceTree = "<group>"; };
@@ -120,6 +126,8 @@
 			children = (
 				9D0838CD18FD7BDB009963C2 /* SPParser.h */,
 				9D0838CE18FD7BDB009963C2 /* SPParser.m */,
+				48FAB45418FDBF4A00581F7B /* TextTableViewCell.h */,
+				48FAB45518FDBF4A00581F7B /* TextTableViewCell.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -162,6 +170,8 @@
 				9D46A07418FD6A9D00C5B228 /* MapViewController.m */,
 				48FAB44318FDA30000581F7B /* FeedsTableViewController.h */,
 				48FAB44418FDA30000581F7B /* FeedsTableViewController.m */,
+				48FAB45118FDBCE600581F7B /* FeedTableViewController.h */,
+				48FAB45218FDBCE600581F7B /* FeedTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -339,8 +349,10 @@
 				9D88D41518FD6405000F6629 /* AppDelegate.m in Sources */,
 				9D88D41118FD6405000F6629 /* main.m in Sources */,
 				9D28E48918FD73F8002173D2 /* SPModel.m in Sources */,
+				48FAB45318FDBCE600581F7B /* FeedTableViewController.m in Sources */,
 				48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */,
 				9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */,
+				48FAB45618FDBF4A00581F7B /* TextTableViewCell.m in Sources */,
 				48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */,
 				9D28E49018FD7500002173D2 /* NSString+SPFormatter.m in Sources */,
 				48FAB44F18FDBA8D00581F7B /* Feed.m in Sources */,
