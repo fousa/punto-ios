@@ -56,6 +56,7 @@
         [self.navigationController pushViewController:feedController animated:YES];
     } else {
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
+        navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:navigationController animated:YES completion:nil];
     }
 }

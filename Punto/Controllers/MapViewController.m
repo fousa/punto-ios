@@ -83,6 +83,7 @@
     FeedsTableViewController *feedsController = [FeedsTableViewController new];
     feedsController.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedsController];
+    navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
