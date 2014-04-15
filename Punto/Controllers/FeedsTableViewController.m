@@ -11,7 +11,9 @@
 @interface FeedsTableViewController ()
 @end
 
-@implementation FeedsTableViewController
+@implementation FeedsTableViewController {
+    NSMutableArray *_feeds;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,6 +27,8 @@
     self.title = NSLocalizedString(@"My Spots", @"My Spots");
     
     [self setLeftBarButtonItem:animated];
+    
+    _feeds = @[].mutableCopy;
 }
 
 #pragma mark - Actions
@@ -34,13 +38,12 @@
 }
 
 - (void)didPressAdd:(id)sender {
-    
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return _feeds.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -48,7 +51,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCellIdentifier];
-    }
+}
     cell.textLabel.text = @(indexPath.row).stringValue;
     return cell;
 }

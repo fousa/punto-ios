@@ -19,6 +19,9 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - coby (0.0.1)
+  - MagicalRecord (2.2):
+    - MagicalRecord/Core
+  - MagicalRecord/Core (2.2)
   - Mantle (1.4.1):
     - Mantle/extobjc
   - Mantle/extobjc (1.4.1)
@@ -27,12 +30,14 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.2.1)
   - coby (~> 0.0.1)
+  - MagicalRecord (~> 2.2)
   - Mantle (~> 1.4)
   - Masonry (~> 0.4)
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   coby: aadb6abee8b5b8ce0671a4dc042adcc16fe084c9
+  MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
   Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
 
