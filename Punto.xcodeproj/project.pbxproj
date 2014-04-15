@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B738AB48F124E5CAA0B4E5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25329678405444AB6EF1472 /* libPods.a */; };
+		9D0838CA18FD7926009963C2 /* ls8.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D0838C918FD7926009963C2 /* ls8.json */; };
 		9D28E48518FD6F2C002173D2 /* SPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48418FD6F2C002173D2 /* SPClient.m */; };
 		9D28E48918FD73F8002173D2 /* SPModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48818FD73F8002173D2 /* SPModel.m */; };
 		9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48B18FD7443002173D2 /* SPMessage.m */; };
@@ -25,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		9D0838C918FD7926009963C2 /* ls8.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ls8.json; sourceTree = "<group>"; };
+		9D0838CB18FD7957009963C2 /* CommonMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonMacros.h; sourceTree = "<group>"; };
 		9D28E48318FD6F2C002173D2 /* SPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPClient.h; sourceTree = "<group>"; };
 		9D28E48418FD6F2C002173D2 /* SPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPClient.m; sourceTree = "<group>"; };
 		9D28E48718FD73F8002173D2 /* SPModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPModel.h; sourceTree = "<group>"; };
@@ -67,6 +70,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D0838C618FD791A009963C2 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				9D0838C918FD7926009963C2 /* ls8.json */,
+			);
+			path = Dummy;
+			sourceTree = SOURCE_ROOT;
+		};
 		9D28E48218FD6F15002173D2 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,10 +165,12 @@
 		9D88D40B18FD6405000F6629 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9D88D40C18FD6405000F6629 /* Punto-Info.plist */,
-				9D88D40D18FD6405000F6629 /* InfoPlist.strings */,
+				9D0838CB18FD7957009963C2 /* CommonMacros.h */,
 				9D88D41218FD6405000F6629 /* Punto-Prefix.pch */,
 				9D88D41018FD6405000F6629 /* main.m */,
+				9D0838C618FD791A009963C2 /* Dummy */,
+				9D88D40C18FD6405000F6629 /* Punto-Info.plist */,
+				9D88D40D18FD6405000F6629 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -226,6 +239,7 @@
 			files = (
 				9D88D42018FD6405000F6629 /* Images.xcassets in Resources */,
 				9D88D40F18FD6405000F6629 /* InfoPlist.strings in Resources */,
+				9D0838CA18FD7926009963C2 /* ls8.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

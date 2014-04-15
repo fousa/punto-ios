@@ -16,6 +16,8 @@
 
     #import "Coby.h"
     #import "Masonry.h"
+
+    #import "CommonMacros.h"
 #endif
 
 #define MAS_SHORTHAND

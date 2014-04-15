@@ -40,11 +40,22 @@
 #pragma mark - Fetch messages
 
 - (void)fetchMessagesWithCompletion:(void(^)(NSError *error, id responseObject))completion {
-    [self GET:@"message.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (completion) completion(nil, [SPMessage parseModels:responseObject]);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion) completion(error, nil);
-    }];
+    if ([self.baseURL isFileURL]) {
+        NSData *data = [NSData dataWithContentsOfURL:self.baseURL];
+        NSError *error = nil;
+        NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        if (error) {
+            if (completion) completion(error, nil);
+        } else {
+            if (completion) completion(nil, [SPMessage parseModels:responseObject]);
+        }
+    } else {
+        [self GET:@"message.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (completion) completion(nil, [SPMessage parseModels:responseObject]);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (completion) completion(error, nil);
+        }];
+    }
 }
 
 @end

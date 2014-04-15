@@ -34,8 +34,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSURL *URL = [NSURL URLWithString:@"https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0eidTtvPELdsiYossMyl9iXKzvQvfW1yB"];
-    SPClient *client = [[SPClient alloc] initWithBaseURL:URL];
+    NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"ls8" withExtension:@"json"];
+    SPClient *client = [[SPClient alloc] initWithBaseURL:fileURL];
     [client fetchMessagesWithCompletion:^(NSError *error, id responseObject) {
         NSLog(@"--- error: %@", error);
         NSLog(@"--- responseObject: %@", responseObject);
