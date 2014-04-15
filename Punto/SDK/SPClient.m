@@ -8,6 +8,8 @@
 
 #import "SPClient.h"
 
+#import "SPMessage.h"
+
 @implementation SPClient
 
 #pragma mark - Instantiate
@@ -39,7 +41,7 @@
 
 - (void)fetchMessagesWithCompletion:(void(^)(NSError *error, id responseObject))completion {
     [self GET:@"message.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (completion) completion(nil, responseObject);
+        if (completion) completion(nil, [SPMessage parseModels:responseObject]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (completion) completion(error, nil);
     }];
