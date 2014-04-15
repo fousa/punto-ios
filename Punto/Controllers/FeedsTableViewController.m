@@ -70,7 +70,13 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"remove path %@", indexPath);
+        Feed *feed = _feeds[indexPath.row];
+        [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+            Feed *localFeed = [feed MR_inContext:localContext];
+            [localFeed MR_deleteInContext:localContext];
+        }];
+        [_feeds removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
