@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3B738AB48F124E5CAA0B4E5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25329678405444AB6EF1472 /* libPods.a */; };
 		9D46A07518FD6A9D00C5B228 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D46A07418FD6A9D00C5B228 /* MapViewController.m */; };
+		9D46A07718FD6C0500C5B228 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D46A07618FD6C0500C5B228 /* MapKit.framework */; };
 		9D88D40518FD6405000F6629 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88D40418FD6405000F6629 /* Foundation.framework */; };
 		9D88D40718FD6405000F6629 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88D40618FD6405000F6629 /* CoreGraphics.framework */; };
 		9D88D40918FD6405000F6629 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88D40818FD6405000F6629 /* UIKit.framework */; };
@@ -22,6 +23,7 @@
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		9D46A07318FD6A9D00C5B228 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9D46A07418FD6A9D00C5B228 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		9D46A07618FD6C0500C5B228 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9D88D40118FD6405000F6629 /* Punto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Punto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D88D40418FD6405000F6629 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9D88D40618FD6405000F6629 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -42,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D46A07718FD6C0500C5B228 /* MapKit.framework in Frameworks */,
 				9D88D40718FD6405000F6629 /* CoreGraphics.framework in Frameworks */,
 				9D88D40918FD6405000F6629 /* UIKit.framework in Frameworks */,
 				9D88D40518FD6405000F6629 /* Foundation.framework in Frameworks */,
@@ -82,6 +85,7 @@
 		9D88D40318FD6405000F6629 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D46A07618FD6C0500C5B228 /* MapKit.framework */,
 				9D88D40418FD6405000F6629 /* Foundation.framework */,
 				9D88D40618FD6405000F6629 /* CoreGraphics.framework */,
 				9D88D40818FD6405000F6629 /* UIKit.framework */,
@@ -108,8 +112,8 @@
 			children = (
 				9D88D40C18FD6405000F6629 /* Punto-Info.plist */,
 				9D88D40D18FD6405000F6629 /* InfoPlist.strings */,
-				9D88D41018FD6405000F6629 /* main.m */,
 				9D88D41218FD6405000F6629 /* Punto-Prefix.pch */,
+				9D88D41018FD6405000F6629 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

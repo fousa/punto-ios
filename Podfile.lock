@@ -1,10 +1,13 @@
 PODS:
   - coby (0.0.1)
+  - Masonry (0.4.0)
 
 DEPENDENCIES:
   - coby (~> 0.0.1)
+  - Masonry (~> 0.4)
 
 SPEC CHECKSUMS:
   coby: aadb6abee8b5b8ce0671a4dc042adcc16fe084c9
+  Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
 
 COCOAPODS: 0.29.0
