@@ -18,23 +18,39 @@
 
 @implementation MapViewController {
     MKMapView *_mapView;
+    
+    UIButton *_openButton;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak MapViewController *weakSelf = self;
+    
+    // Add map view
     _mapView = [MKMapView new];
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
-    
-    __weak MapViewController *weakSelf = self;
     [_mapView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(weakSelf.view).with.insets((UIEdgeInsets) { 0, 0, 0, 0 });
+    }];
+    
+    // Add open button
+    _openButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _openButton.backgroundColor = [UIColor whiteColor];
+    [_openButton addTarget:self action:@selector(didPressOpen:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_openButton];
+    [_openButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@-10);
+        make.bottom.equalTo(@-10);
     }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [_openButton setTitle:NSLocalizedString(@"Open", @"Open") forState:UIControlStateNormal];
+    [_openButton sizeToFit];
     
     __weak MapViewController *weakSelf = self;
     
@@ -50,6 +66,11 @@
             }];
         }
     }];
+}
+
+#pragma mark - Actions
+
+- (void)didPressOpen:(id)sender {
 }
 
 #pragma mark - Map
