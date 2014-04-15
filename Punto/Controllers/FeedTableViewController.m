@@ -29,9 +29,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.title = NSLocalizedString(@"New feed", @"New feed");
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(didPressCancel:)];
+    if (_feed) {
+        self.title = NSLocalizedString(@"Edit feed", @"Edit feed");
+    } else {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(didPressCancel:)];
+        self.title = NSLocalizedString(@"New feed", @"New feed");
+    }
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(didPressSave:)];
     
     [self.tableView reloadData];
@@ -53,12 +56,21 @@
     __weak NSString *weakLink = [linkCell value];
     
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-        Feed *feed = [Feed MR_createInContext:localContext];
+        Feed *feed = nil;
+        if (_feed) {
+            feed = [_feed MR_inContext:localContext];
+        } else {
+            feed = [Feed MR_createInContext:localContext];
+        }
         feed.name = weakName;
         feed.link = weakLink;
     }];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_feed) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - Table view data source
@@ -86,9 +98,11 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"Name", @"Name");
         cell.placeholder = NSLocalizedString(@"Pick a name", @"Pick a name");
+        if (_feed) cell.value = _feed.name;
     } else {
         cell.textLabel.text = NSLocalizedString(@"Spot link", @"Spot link");
         cell.placeholder = NSLocalizedString(@"Paste a Spot link", @"Paste a Spot link");
+        if (_feed) cell.value = _feed.link;
     }
     return cell;
 }

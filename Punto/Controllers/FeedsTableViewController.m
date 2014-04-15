@@ -22,6 +22,8 @@
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.tableView.allowsSelectionDuringEditing = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -42,9 +44,20 @@
 }
 
 - (void)didPressAdd:(id)sender {
+    [self presentFeedController:nil];
+}
+
+#pragma mark - Feed
+
+- (void)presentFeedController:(Feed *)feed {
     FeedTableViewController *feedController = [FeedTableViewController new];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    feedController.feed = feed;
+    if (feed) {
+        [self.navigationController pushViewController:feedController animated:YES];
+    } else {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
+        [self presentViewController:navigationController animated:YES completion:nil];
+    }
 }
 
 #pragma mark - Table view data source
@@ -58,6 +71,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCellIdentifier];
+        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     Feed *feed = _feeds[indexPath.row];
     cell.textLabel.text = feed.name;
@@ -65,7 +80,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (tableView.editing) {
+        [self presentFeedController:_feeds[indexPath.row]];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

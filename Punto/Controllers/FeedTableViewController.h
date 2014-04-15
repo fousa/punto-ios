@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Fousa. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@class Feed;
 
 @interface FeedTableViewController : UITableViewController
-
+@property (nonatomic, strong) Feed *feed;
 @end
