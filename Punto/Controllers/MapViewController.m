@@ -32,6 +32,8 @@
     UIButton *_regionButton;
     
     SPClient *_client;
+    
+    MASConstraint *_fullConstraint;
 }
 
 - (void)viewDidLoad {
@@ -53,13 +55,13 @@
     [_openButton addTarget:self action:@selector(didPressOpen:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_openButton];
     [_openButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(@-10);
-        make.bottom.equalTo(@-10);
+        _fullConstraint = make.edges.equalTo(weakSelf.view).with.insets((UIEdgeInsets) { 100, 50, 100, 50 });
     }];
     
     // Add region button
     _regionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _regionButton.backgroundColor = [UIColor whiteColor];
+    _regionButton.alpha = 0.0f;
     [_regionButton addTarget:self action:@selector(didPressRegion:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_regionButton];
     [_regionButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,6 +88,14 @@
 #pragma mark - Feeds Controller
 
 - (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
+    [_fullConstraint uninstall];
+    [_openButton sizeToFit];
+    [_openButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@-10);
+        make.bottom.equalTo(@-10);
+    }];
+    _regionButton.alpha = 1.0f;
+    
     [self resetData];
     
     __weak MapViewController *weakSelf = self;
