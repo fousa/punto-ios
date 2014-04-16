@@ -81,7 +81,7 @@
         [_blockedSelf fetchMessages];
     }];
     [self addToQueue:^{ 
-        [NSThread sleepForTimeInterval:5.0f];
+        [NSThread sleepForTimeInterval:60.0f];
         [_blockedSelf batch];
     }];
 }
