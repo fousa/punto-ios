@@ -26,8 +26,10 @@
 
 @implementation MapViewController {
     MKMapView *_mapView;
+    MKPolyline *_path;
     
     UIButton *_openButton;
+    UIButton *_regionButton;
     
     SPClient *_client;
 }
@@ -54,6 +56,16 @@
         make.right.equalTo(@-10);
         make.bottom.equalTo(@-10);
     }];
+    
+    // Add region button
+    _regionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _regionButton.backgroundColor = [UIColor whiteColor];
+    [_regionButton addTarget:self action:@selector(didPressRegion:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_regionButton];
+    [_regionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_openButton.mas_left).with.offset(-10);
+        make.bottom.equalTo(_openButton.mas_bottom);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,6 +73,8 @@
     
     [_openButton setTitle:NSLocalizedString(@"Open", @"Open") forState:UIControlStateNormal];
     [_openButton sizeToFit];
+    [_regionButton setTitle:NSLocalizedString(@"Region", @"Region") forState:UIControlStateNormal];
+    [_regionButton sizeToFit];
 }
 
 #pragma mark - Layout
@@ -95,6 +109,10 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
+- (void)didPressRegion:(id)sender {
+    [_mapView setVisibleMapRect:_path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
+}
+
 #pragma mark - Map
 
 - (void)resetData {
@@ -116,6 +134,8 @@
         [_mapView addAnnotation:pin];
         index += 1;
     }];
+    
+    _path = path;
     [_mapView addOverlay:path];
     [_mapView setVisibleMapRect:path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
 }
