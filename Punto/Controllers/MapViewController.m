@@ -17,6 +17,10 @@
 
 #import "Feed.h"
 
+#import "SVPulsingAnnotationView.h"
+
+#import "SPAnnotation.h"
+
 @interface MapViewController () <MKMapViewDelegate, FeedsTableViewControllerDelegate>
 @end
 
@@ -79,7 +83,6 @@
             }];
         }
     }];
-    
 }
 
 #pragma mark - Actions
@@ -102,11 +105,16 @@
 - (void)renderPath:(MKPolyline *)path withMessages:(NSArray *)messages {
     [self resetData];
     
+    __block NSInteger index = 0;
     [messages each:^(SPMessage *message) {
-        MKPointAnnotation *pin = [MKPointAnnotation new];
-        pin.coordinate = [message coordinate];
+        SPAnnotation *pin = [[SPAnnotation alloc] initWithCoordinate:[message coordinate]];
         pin.title = [message.date description];
+        if (index == 0) {
+            pin.subtitle = NSLocalizedString(@"Last position", @"Last position");
+            pin.last = YES;
+        }
         [_mapView addAnnotation:pin];
+        index += 1;
     }];
     [_mapView addOverlay:path];
     [_mapView setVisibleMapRect:path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
@@ -122,14 +130,21 @@
     return pathView;
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    if ([annotation isKindOfClass:MKUserLocation.class]) return nil;
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if([annotation isKindOfClass:[SPAnnotation class]]) {
+        static NSString *AnnotationIdentifier = @"SPAnnotationIdentifier";
+		SVPulsingAnnotationView *view = (SVPulsingAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+		if (view == nil) {
+			view = [[SVPulsingAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
+            view.annotationColor = [UIColor colorWithRed:0.194 green:0.678 blue:0.177 alpha:1.000];
+            view.canShowCallout = YES;
+        }
+        view.delayBetweenPulseCycles = ((SPAnnotation *)annotation).last ? 0 : INFINITY;
+		
+		return view;
+    }
     
-    MKPinAnnotationView *view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MKPinAnnotationView"];
-    view.canShowCallout = YES;
-    view.pinColor = MKPinAnnotationColorGreen;
-    
-    return view;
+    return nil;
 }
 
 @end

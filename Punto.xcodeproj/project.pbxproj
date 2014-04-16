@@ -23,6 +23,7 @@
 		9D28E49018FD7500002173D2 /* NSString+SPFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48F18FD7500002173D2 /* NSString+SPFormatter.m */; };
 		9D46A07518FD6A9D00C5B228 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D46A07418FD6A9D00C5B228 /* MapViewController.m */; };
 		9D46A07718FD6C0500C5B228 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D46A07618FD6C0500C5B228 /* MapKit.framework */; };
+		9D67176918FED256001252BC /* SPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D67176818FED256001252BC /* SPAnnotation.m */; };
 		9D88D40518FD6405000F6629 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88D40418FD6405000F6629 /* Foundation.framework */; };
 		9D88D40718FD6405000F6629 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88D40618FD6405000F6629 /* CoreGraphics.framework */; };
 		9D88D40918FD6405000F6629 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88D40818FD6405000F6629 /* UIKit.framework */; };
@@ -61,6 +62,8 @@
 		9D46A07318FD6A9D00C5B228 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		9D46A07418FD6A9D00C5B228 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		9D46A07618FD6C0500C5B228 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9D67176718FED256001252BC /* SPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnnotation.h; sourceTree = "<group>"; };
+		9D67176818FED256001252BC /* SPAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAnnotation.m; sourceTree = "<group>"; };
 		9D88D40118FD6405000F6629 /* Punto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Punto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D88D40418FD6405000F6629 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9D88D40618FD6405000F6629 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -128,6 +131,8 @@
 				9D0838CE18FD7BDB009963C2 /* SPParser.m */,
 				48FAB45418FDBF4A00581F7B /* TextTableViewCell.h */,
 				48FAB45518FDBF4A00581F7B /* TextTableViewCell.m */,
+				9D67176718FED256001252BC /* SPAnnotation.h */,
+				9D67176818FED256001252BC /* SPAnnotation.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 				9D28E48918FD73F8002173D2 /* SPModel.m in Sources */,
 				48FAB45318FDBCE600581F7B /* FeedTableViewController.m in Sources */,
 				48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */,
+				9D67176918FED256001252BC /* SPAnnotation.m in Sources */,
 				9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */,
 				48FAB45618FDBF4A00581F7B /* TextTableViewCell.m in Sources */,
 				48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */,
