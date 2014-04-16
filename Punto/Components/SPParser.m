@@ -12,7 +12,7 @@
 
 @implementation SPParser
 
-+ (void)parse:(NSArray *)messages completion:(void(^)(NSError *error, MKPolyline *path))completion {
++ (void)parse:(NSArray *)messages completion:(void(^)(NSError *error, MKPolyline *path, NSArray *messages))completion {
     CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * messages.count);
     for(int i = 0; i < messages.count; i++) {
         SPMessage *message = messages[i];
@@ -23,7 +23,7 @@
     MKPolyline *path = [MKPolyline polylineWithCoordinates:coordinates count:messages.count];
     free(coordinates);
     
-    if (completion) completion(nil, path);
+    if (completion) completion(nil, path, messages);
 }
 
 @end

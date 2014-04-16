@@ -9,5 +9,5 @@
 #import <MapKit/MapKit.h>
 
 @interface SPParser : NSObject
-+ (void)parse:(NSArray *)messages completion:(void(^)(NSError *error, MKPolyline *path))completion;
++ (void)parse:(NSArray *)messages completion:(void(^)(NSError *error, MKPolyline *path, NSArray *messages))completion;
 @end

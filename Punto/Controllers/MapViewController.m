@@ -13,6 +13,7 @@
 
 #import "SPClient.h"
 #import "SPParser.h"
+#import "SPMessage.h"
 
 #import "Feed.h"
 
@@ -73,8 +74,8 @@
     _client = [[SPClient alloc] initWithBaseURL:feed.URL];
     [_client startfetchingMessagesWithCompletion:^(NSError *error, id responseObject) {
         if (!error) {
-            [SPParser parse:responseObject completion:^(NSError *error, MKPolyline *path) {
-                if (!error) [weakSelf renderPath:path];
+            [SPParser parse:responseObject completion:^(NSError *error, MKPolyline *path, NSArray *messages) {
+                if (!error) [weakSelf renderPath:path withMessages:messages];
             }];
         }
     }];
@@ -95,11 +96,18 @@
 
 - (void)resetData {
     [_mapView removeOverlays:_mapView.overlays];
+    [_mapView removeAnnotations:_mapView.annotations];
 }
 
-- (void)renderPath:(MKPolyline *)path {
+- (void)renderPath:(MKPolyline *)path withMessages:(NSArray *)messages {
     [self resetData];
     
+    [messages each:^(SPMessage *message) {
+        MKPointAnnotation *pin = [MKPointAnnotation new];
+        pin.coordinate = [message coordinate];
+        pin.title = [message.date description];
+        [_mapView addAnnotation:pin];
+    }];
     [_mapView addOverlay:path];
     [_mapView setVisibleMapRect:path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
 }
@@ -112,6 +120,16 @@
     pathView.lineWidth = 3.0;
     
     return pathView;
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    if ([annotation isKindOfClass:MKUserLocation.class]) return nil;
+    
+    MKPinAnnotationView *view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MKPinAnnotationView"];
+    view.canShowCallout = YES;
+    view.pinColor = MKPinAnnotationColorGreen;
+    
+    return view;
 }
 
 @end
