@@ -12,6 +12,8 @@
 
 #import "Feed.h"
 
+#import "NSString+URL.h"
+
 @interface FeedTableViewController ()
 @end
 
@@ -56,15 +58,7 @@
 }
 
 - (void)didPressSave:(id)sender {
-    TextTableViewCell *nameCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    __weak NSString *weakName = [nameCell value];
-    TextTableViewCell *linkCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    __weak NSString *weakLink = [linkCell value];
-    
-    if (IsEmpty(weakLink) || IsEmpty(weakName)) {
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"You should fill in all the fields in order to save the feed.", @"You should fill in all the fields in order to save the feed.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
-        return;
-    }
+    if (![self validate]) return;
     
     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
         Feed *feed = nil;
@@ -73,8 +67,8 @@
         } else {
             feed = [Feed MR_createInContext:localContext];
         }
-        feed.name = weakName;
-        feed.link = weakLink;
+        feed.name = [self name];
+        feed.link = [self link];
     }];
     
     if (_feed) {
@@ -100,6 +94,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[tableView cellForRowAtIndexPath:indexPath] becomeFirstResponder];
+}
+
+#pragma mark - Validation
+
+- (NSString *)name {
+    TextTableViewCell *nameCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    return [nameCell value];
+}
+
+- (NSString *)link {
+    TextTableViewCell *linkCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    return [linkCell value];
+}
+
+- (BOOL)validate {
+    if (IsEmpty([self name]) || IsEmpty([self link])) {
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"You should fill in all the fields in order to save the feed.", @"You should fill in all the fields in order to save the feed.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
+        return NO;
+    } else if (![[self link] isValidURL]) {
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"You should fill a correct URL in order to save the feed.", @"You should fill a correct URL in order to save the feed.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - Cells
