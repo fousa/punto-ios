@@ -29,6 +29,17 @@
     return self;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    [self.textLabel sizeToFit];
+    self.textLabel.frame = (CGRect) { self.textLabel.frame.origin, self.textLabel.frame.size.width, self.contentView.frame.size.height };
+    
+    CGFloat x = CGRectGetMaxX(self.textLabel.frame) + 10.0f;
+    CGFloat width = CGRectGetMaxX(self.frame) - x - 10.0f;
+    _field.frame = (CGRect) { x, _field.frame.origin.y, width, _field.frame.size.height };
+}
+
 #pragma mark - Value
 
 - (NSString *)value {
