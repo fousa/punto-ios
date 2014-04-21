@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3B738AB48F124E5CAA0B4E5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25329678405444AB6EF1472 /* libPods.a */; };
 		481863DC1905A36100F92177 /* NSString+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 481863DB1905A36100F92177 /* NSString+URL.m */; };
+		481863DF1905AB4300F92177 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 481863DE1905AB4300F92177 /* SwitchTableViewCell.m */; };
 		487EEDB119055B0C00CA0625 /* SPBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 487EEDB019055B0C00CA0625 /* SPBarNotification.m */; };
 		48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44418FDA30000581F7B /* FeedsTableViewController.m */; };
 		48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44718FDB9B700581F7B /* Punto.xcdatamodeld */; };
@@ -39,6 +40,8 @@
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		481863DA1905A36100F92177 /* NSString+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URL.h"; sourceTree = "<group>"; };
 		481863DB1905A36100F92177 /* NSString+URL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URL.m"; sourceTree = "<group>"; };
+		481863DD1905AB4300F92177 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
+		481863DE1905AB4300F92177 /* SwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchTableViewCell.m; sourceTree = "<group>"; };
 		4824D70F1905497400F73BF1 /* Punto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Punto.entitlements; sourceTree = "<group>"; };
 		487EEDAC190557F600CA0625 /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
 		487EEDAF19055B0C00CA0625 /* SPBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBarNotification.h; sourceTree = "<group>"; };
@@ -113,6 +116,17 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		481863E01905ABA500F92177 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				48FAB45418FDBF4A00581F7B /* TextTableViewCell.h */,
+				48FAB45518FDBF4A00581F7B /* TextTableViewCell.m */,
+				481863DD1905AB4300F92177 /* SwitchTableViewCell.h */,
+				481863DE1905AB4300F92177 /* SwitchTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		48FAB44618FDB9A600581F7B /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,8 +160,7 @@
 			children = (
 				9D0838CD18FD7BDB009963C2 /* SPParser.h */,
 				9D0838CE18FD7BDB009963C2 /* SPParser.m */,
-				48FAB45418FDBF4A00581F7B /* TextTableViewCell.h */,
-				48FAB45518FDBF4A00581F7B /* TextTableViewCell.m */,
+				481863E01905ABA500F92177 /* Cells */,
 				9D67176718FED256001252BC /* SPAnnotation.h */,
 				9D67176818FED256001252BC /* SPAnnotation.m */,
 				487EEDAF19055B0C00CA0625 /* SPBarNotification.h */,
@@ -394,6 +407,7 @@
 				48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */,
 				481863DC1905A36100F92177 /* NSString+URL.m in Sources */,
 				9D28E49018FD7500002173D2 /* NSString+SPFormatter.m in Sources */,
+				481863DF1905AB4300F92177 /* SwitchTableViewCell.m in Sources */,
 				48FAB44F18FDBA8D00581F7B /* Feed.m in Sources */,
 				487EEDB119055B0C00CA0625 /* SPBarNotification.m in Sources */,
 				48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */,

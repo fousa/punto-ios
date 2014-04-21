@@ -9,6 +9,7 @@
 #import "FeedTableViewController.h"
 
 #import "TextTableViewCell.h"
+#import "SwitchTableViewCell.h"
 
 #import "Feed.h"
 
@@ -69,6 +70,7 @@
         }
         feed.name = [self name];
         feed.link = [self link];
+        feed.notifyValue = [self notify];
     }];
     
     if (_feed) {
@@ -81,7 +83,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -106,6 +108,11 @@
 - (NSString *)link {
     TextTableViewCell *linkCell =(TextTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     return [linkCell value];
+}
+
+- (BOOL)notify {
+    SwitchTableViewCell *notifyCell =(SwitchTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    return [notifyCell value];
 }
 
 - (BOOL)validate {
@@ -141,11 +148,12 @@
 
 - (UITableViewCell *)cellForSwitch:(NSIndexPath *)indexPath {
     static NSString *SwitchCellIdentifier = @"SwitchCell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:SwitchCellIdentifier];
+    SwitchTableViewCell *cell = (SwitchTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:SwitchCellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SwitchCellIdentifier];
+        cell = [[SwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SwitchCellIdentifier];
     }
     cell.textLabel.text = NSLocalizedString(@"Notify movement", @"Notify movement");
+    if (_feed) cell.value = _feed.notifyValue;
     return cell;
 }
 
