@@ -4,8 +4,9 @@
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notify" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="uniqueIdentifier" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Feed" positionX="-63" positionY="-18" width="128" height="105"/>
     </elements>
 </model>
