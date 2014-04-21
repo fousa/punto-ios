@@ -35,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		4824D70F1905497400F73BF1 /* Punto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Punto.entitlements; sourceTree = "<group>"; };
 		48FAB44318FDA30000581F7B /* FeedsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsTableViewController.h; sourceTree = "<group>"; };
 		48FAB44418FDA30000581F7B /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
 		48FAB44818FDB9B700581F7B /* Punto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Punto.xcdatamodel; sourceTree = "<group>"; };
@@ -237,6 +238,7 @@
 				9D0838C618FD791A009963C2 /* Dummy */,
 				9D88D40C18FD6405000F6629 /* Punto-Info.plist */,
 				9D88D40D18FD6405000F6629 /* InfoPlist.strings */,
+				4824D70F1905497400F73BF1 /* Punto.entitlements */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -279,6 +281,16 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Fousa;
+				TargetAttributes = {
+					9D88D40018FD6404000F6629 = {
+						DevelopmentTeam = 743AM63YFU;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 9D88D3FC18FD6404000F6629 /* Build configuration list for PBXProject "Punto" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -459,10 +471,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Punto/Punto.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Punto/Punto-Prefix.pch";
 				INFOPLIST_FILE = "Punto/Punto-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -473,10 +489,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Punto/Punto.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Punto/Punto-Prefix.pch";
 				INFOPLIST_FILE = "Punto/Punto-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
