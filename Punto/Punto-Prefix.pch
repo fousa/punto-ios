@@ -19,6 +19,7 @@
     #import "Coby.h"
     #import "Masonry.h"
 
+    #import "Globals.h"
     #import "CommonMacros.h"
 #endif
 

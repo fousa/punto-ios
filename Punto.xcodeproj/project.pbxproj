@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4824D70F1905497400F73BF1 /* Punto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Punto.entitlements; sourceTree = "<group>"; };
+		487EEDAC190557F600CA0625 /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
 		48FAB44318FDA30000581F7B /* FeedsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsTableViewController.h; sourceTree = "<group>"; };
 		48FAB44418FDA30000581F7B /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
 		48FAB44818FDB9B700581F7B /* Punto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Punto.xcdatamodel; sourceTree = "<group>"; };
@@ -232,6 +233,7 @@
 		9D88D40B18FD6405000F6629 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				487EEDAC190557F600CA0625 /* Globals.h */,
 				9D0838CB18FD7957009963C2 /* CommonMacros.h */,
 				9D88D41218FD6405000F6629 /* Punto-Prefix.pch */,
 				9D88D41018FD6405000F6629 /* main.m */,
