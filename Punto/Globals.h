@@ -7,3 +7,4 @@
 //
 
 static NSString *kUbiquityContainerIdentifier = @"";
+static NSString *kDataChangedNotification = @"kDataChangedNotification";

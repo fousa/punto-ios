@@ -131,6 +131,8 @@
     
     dispatch_async_main(^{
         [[SPBarNotification sharedInstance] dismissNotification];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
     });
 }
 
