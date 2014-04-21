@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B738AB48F124E5CAA0B4E5B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F25329678405444AB6EF1472 /* libPods.a */; };
+		487EEDB119055B0C00CA0625 /* SPBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 487EEDB019055B0C00CA0625 /* SPBarNotification.m */; };
 		48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44418FDA30000581F7B /* FeedsTableViewController.m */; };
 		48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44718FDB9B700581F7B /* Punto.xcdatamodeld */; };
 		48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44B18FDBA8D00581F7B /* _Feed.m */; };
@@ -37,6 +38,8 @@
 		36F01078BEE04358BC01B54F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4824D70F1905497400F73BF1 /* Punto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Punto.entitlements; sourceTree = "<group>"; };
 		487EEDAC190557F600CA0625 /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
+		487EEDAF19055B0C00CA0625 /* SPBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBarNotification.h; sourceTree = "<group>"; };
+		487EEDB019055B0C00CA0625 /* SPBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBarNotification.m; sourceTree = "<group>"; };
 		48FAB44318FDA30000581F7B /* FeedsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsTableViewController.h; sourceTree = "<group>"; };
 		48FAB44418FDA30000581F7B /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
 		48FAB44818FDB9B700581F7B /* Punto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Punto.xcdatamodel; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 				48FAB45518FDBF4A00581F7B /* TextTableViewCell.m */,
 				9D67176718FED256001252BC /* SPAnnotation.h */,
 				9D67176818FED256001252BC /* SPAnnotation.m */,
+				487EEDAF19055B0C00CA0625 /* SPBarNotification.h */,
+				487EEDB019055B0C00CA0625 /* SPBarNotification.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */,
 				9D28E49018FD7500002173D2 /* NSString+SPFormatter.m in Sources */,
 				48FAB44F18FDBA8D00581F7B /* Feed.m in Sources */,
+				487EEDB119055B0C00CA0625 /* SPBarNotification.m in Sources */,
 				48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */,
 				9D28E48518FD6F2C002173D2 /* SPClient.m in Sources */,
 			);

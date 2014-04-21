@@ -13,6 +13,8 @@
 
 #import "MapViewController.h"
 
+#import "SPBarNotification.h"
+
 @interface AppDelegate () <CDEPersistentStoreEnsembleDelegate>
 @end
 
@@ -101,6 +103,21 @@
     }
 }
 
+- (void)persistentStoreEnsembleWillImportStore:(CDEPersistentStoreEnsemble *)ensemble {
+    [[SPBarNotification sharedInstance] displayNotificationWithMessage:@"Importing data" completion:nil];
+}
+
+- (void)persistentStoreEnsembleDidImportStore:(CDEPersistentStoreEnsemble *)ensemble {
+    [[SPBarNotification sharedInstance] dismissNotification];
+}
+
+- (BOOL)persistentStoreEnsemble:(CDEPersistentStoreEnsemble *)ensemble shouldSaveMergedChangesInManagedObjectContext:(NSManagedObjectContext *)savingContext reparationManagedObjectContext:(NSManagedObjectContext *)reparationContext {
+    dispatch_async_main(^{
+        [[SPBarNotification sharedInstance] displayNotificationWithMessage:@"Syncing data" completion:nil];
+    });
+    return YES;
+}
+
 - (void)persistentStoreEnsemble:(CDEPersistentStoreEnsemble *)ensemble didSaveMergeChangesWithNotification:(NSNotification *)notification {
     NSManagedObjectContext *rootContext = [NSManagedObjectContext MR_rootSavingContext];
     [rootContext performBlockAndWait:^{
@@ -111,6 +128,10 @@
     [mainContext performBlockAndWait:^{
         [mainContext mergeChangesFromContextDidSaveNotification:notification];
     }];
+    
+    dispatch_async_main(^{
+        [[SPBarNotification sharedInstance] dismissNotification];
+    });
 }
 
 - (NSArray *)persistentStoreEnsemble:(CDEPersistentStoreEnsemble *)ensemble globalIdentifiersForManagedObjects:(NSArray *)objects {
