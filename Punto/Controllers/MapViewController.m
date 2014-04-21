@@ -32,8 +32,11 @@
     UIButton *_regionButton;
     
     SPClient *_client;
+    Feed *_feed;
     
     MASConstraint *_fullConstraint;
+    
+    BOOL _initialDisplay;
 }
 
 - (void)viewDidLoad {
@@ -89,19 +92,30 @@
 
 - (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
     [self resetData];
+    _feed = feed;
     
     __weak MapViewController *weakSelf = self;
     _client = [[SPClient alloc] initWithBaseURL:feed.URL];
+    _initialDisplay = YES;
     [_client startfetchingMessagesWithCompletion:^(NSError *error, id responseObject) {
         NSArray *messages = responseObject;
         if (error || messages.count == 0) {
-            [self resetInitialButtons];
+            [weakSelf resetInitialButtons];
         } else if (!error && messages.count > 0) {
-            [SPParser parse:responseObject completion:^(NSError *error, MKPolyline *path, NSArray *messages) {
-                if (!error) [weakSelf renderPath:path withMessages:messages];
-            }];
+            [weakSelf processMessages:messages];
         }
     }];
+}
+
+- (void)processMessages:(NSArray *)messages {
+    BOOL shouldProcess = [_feed shouldProcessMessages:messages];
+    if (_initialDisplay || shouldProcess) {
+        __weak MapViewController *weakSelf = self;
+        _initialDisplay = NO;
+        [SPParser parse:messages completion:^(NSError *error, MKPolyline *path, NSArray *innerMessages) {
+            if (!error) [weakSelf renderPath:path withMessages:innerMessages];
+        }];
+    }
 }
 
 #pragma mark - Actions

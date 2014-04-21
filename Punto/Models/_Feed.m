@@ -4,6 +4,7 @@
 #import "_Feed.h"
 
 const struct FeedAttributes FeedAttributes = {
+	.lastMessageIdentifier = @"lastMessageIdentifier",
 	.link = @"link",
 	.name = @"name",
 	.notify = @"notify",
@@ -50,6 +51,13 @@ const struct FeedFetchedProperties FeedFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic lastMessageIdentifier;
+
+
 
 
 
