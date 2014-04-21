@@ -98,6 +98,10 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[tableView cellForRowAtIndexPath:indexPath] becomeFirstResponder];
+}
+
 #pragma mark - Cells
 
 - (UITableViewCell *)cellForText:(NSIndexPath *)indexPath {

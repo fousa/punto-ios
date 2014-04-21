@@ -24,6 +24,8 @@
     _field.returnKeyType = UIReturnKeyDone;
     self.accessoryView = _field;
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return self;
 }
 
