@@ -8,6 +8,7 @@ extern const struct FeedAttributes {
 	__unsafe_unretained NSString *link;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *notify;
+	__unsafe_unretained NSString *uniqueIdentifier;
 } FeedAttributes;
 
 extern const struct FeedRelationships {
@@ -15,6 +16,7 @@ extern const struct FeedRelationships {
 
 extern const struct FeedFetchedProperties {
 } FeedFetchedProperties;
+
 
 
 
@@ -68,6 +70,16 @@ extern const struct FeedFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* uniqueIdentifier;
+
+
+
+//- (BOOL)validateUniqueIdentifier:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 
 @end
 
@@ -95,6 +107,12 @@ extern const struct FeedFetchedProperties {
 
 - (BOOL)primitiveNotifyValue;
 - (void)setPrimitiveNotifyValue:(BOOL)value_;
+
+
+
+
+- (NSString*)primitiveUniqueIdentifier;
+- (void)setPrimitiveUniqueIdentifier:(NSString*)value;
 
 
 

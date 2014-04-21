@@ -7,6 +7,7 @@ const struct FeedAttributes FeedAttributes = {
 	.link = @"link",
 	.name = @"name",
 	.notify = @"notify",
+	.uniqueIdentifier = @"uniqueIdentifier",
 };
 
 const struct FeedRelationships FeedRelationships = {
@@ -88,6 +89,13 @@ const struct FeedFetchedProperties FeedFetchedProperties = {
 - (void)setPrimitiveNotifyValue:(BOOL)value_ {
 	[self setPrimitiveNotify:[NSNumber numberWithBool:value_]];
 }
+
+
+
+
+
+@dynamic uniqueIdentifier;
+
 
 
 

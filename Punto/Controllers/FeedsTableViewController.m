@@ -24,6 +24,8 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.tableView.allowsSelectionDuringEditing = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataChanged:) name:kDataChangedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -33,14 +35,20 @@
     
     [self setLeftBarButtonItem:animated];
     
-    _feeds = [Feed MR_findAllSortedBy:@"name" ascending:YES].mutableCopy;
-    [self.tableView reloadData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
 }
 
 #pragma mark - Layout
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
+}
+
+#pragma mark - Notifications
+
+- (void)dataChanged:(NSNotification *)notification {
+    _feeds = [Feed MR_findAllSortedBy:@"name" ascending:YES].mutableCopy;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Actions
