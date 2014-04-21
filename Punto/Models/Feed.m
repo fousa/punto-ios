@@ -5,8 +5,10 @@
 @implementation Feed
 
 - (NSURL *)URL {
-    static NSString *apiURLString = @"https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/";
-    return [NSURL URLWithString:[apiURLString stringByAppendingString:[self extractToken]]];
+    return [[NSBundle mainBundle] URLForResource:@"ls8" withExtension:@"json"];
+    
+//    static NSString *apiURLString = @"https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/";
+//    return [NSURL URLWithString:[apiURLString stringByAppendingString:[self extractToken]]];
 }
 
 - (NSString *)extractToken {
@@ -18,10 +20,10 @@
 
 - (BOOL)shouldProcessMessages:(NSArray *)messages {
     SPMessage *lastMessage = [messages first];
-    if (lastMessage && (IsEmpty(self.lastMessageIdentifier) || ![lastMessage.ID isEqualToString:self.lastMessageIdentifier])) {
+    if (lastMessage && (IsEmpty(self.lastUpdated) || [lastMessage.date compare:self.lastUpdated] == NSOrderedDescending)) {
         [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
             Feed *innerFeed = [self MR_inContext:localContext];
-            innerFeed.lastMessageIdentifier = lastMessage.ID;
+            innerFeed.lastUpdated = lastMessage.date;
         }];
         return YES;
     }

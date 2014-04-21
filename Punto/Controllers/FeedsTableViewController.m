@@ -85,12 +85,13 @@
     static NSString *FeedCellIdentifier = @"FeedCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:FeedCellIdentifier];
         cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     Feed *feed = _feeds[indexPath.row];
     cell.textLabel.text = feed.name;
+    cell.detailTextLabel.text = [feed.lastUpdated description];
     return cell;
 }
 

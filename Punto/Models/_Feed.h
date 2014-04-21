@@ -5,7 +5,7 @@
 
 
 extern const struct FeedAttributes {
-	__unsafe_unretained NSString *lastMessageIdentifier;
+	__unsafe_unretained NSString *lastUpdated;
 	__unsafe_unretained NSString *link;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *notify;
@@ -38,11 +38,11 @@ extern const struct FeedFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString* lastMessageIdentifier;
+@property (nonatomic, strong) NSDate* lastUpdated;
 
 
 
-//- (BOOL)validateLastMessageIdentifier:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateLastUpdated:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -102,8 +102,8 @@ extern const struct FeedFetchedProperties {
 @interface _Feed (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSString*)primitiveLastMessageIdentifier;
-- (void)setPrimitiveLastMessageIdentifier:(NSString*)value;
+- (NSDate*)primitiveLastUpdated;
+- (void)setPrimitiveLastUpdated:(NSDate*)value;
 
 
 
