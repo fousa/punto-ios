@@ -158,6 +158,7 @@
         make.bottom.equalTo(@-10);
     }];
     _regionButton.alpha = 1.0f;
+    _openButton.alpha = 1.0f;
     
     __block NSInteger index = 0;
     [messages each:^(SPMessage *message) {
@@ -172,8 +173,8 @@
     }];
     
     _path = path;
-    [_mapView addOverlay:path];
-    [_mapView setVisibleMapRect:path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
+    [_mapView addOverlay:_path];
+    [_mapView setVisibleMapRect:_path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
 }
 
 #pragma mark Map delegate

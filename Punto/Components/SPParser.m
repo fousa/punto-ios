@@ -23,7 +23,9 @@
     MKPolyline *path = [MKPolyline polylineWithCoordinates:coordinates count:messages.count];
     free(coordinates);
     
-    if (completion) completion(nil, path, messages);
+    dispatch_async_main(^{
+        if (completion) completion(nil, path, messages);
+    });
 }
 
 @end
