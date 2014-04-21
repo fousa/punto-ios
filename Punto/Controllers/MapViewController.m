@@ -88,20 +88,15 @@
 #pragma mark - Feeds Controller
 
 - (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
-    [_fullConstraint uninstall];
-    [_openButton sizeToFit];
-    [_openButton mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(@-10);
-        make.bottom.equalTo(@-10);
-    }];
-    _regionButton.alpha = 1.0f;
-    
     [self resetData];
     
     __weak MapViewController *weakSelf = self;
     _client = [[SPClient alloc] initWithBaseURL:feed.URL];
     [_client startfetchingMessagesWithCompletion:^(NSError *error, id responseObject) {
-        if (!error) {
+        NSArray *messages = responseObject;
+        if (error || messages.count == 0) {
+            [self resetInitialButtons];
+        } else if (!error && messages.count > 0) {
             [SPParser parse:responseObject completion:^(NSError *error, MKPolyline *path, NSArray *messages) {
                 if (!error) [weakSelf renderPath:path withMessages:messages];
             }];
@@ -123,15 +118,32 @@
     [_mapView setVisibleMapRect:_path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
 }
 
+- (void)resetInitialButtons {
+    [_fullConstraint uninstall];
+    [_fullConstraint install];
+    
+    _openButton.alpha = 1.0f;
+    _regionButton.alpha = 0.0f;
+}
+
 #pragma mark - Map
 
 - (void)resetData {
     [_mapView removeOverlays:_mapView.overlays];
     [_mapView removeAnnotations:_mapView.annotations];
+    
+    _regionButton.alpha = 0.0f;
+    _openButton.alpha = 0.0f;
 }
 
 - (void)renderPath:(MKPolyline *)path withMessages:(NSArray *)messages {
-    [self resetData];
+    [_fullConstraint uninstall];
+    [_openButton sizeToFit];
+    [_openButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@-10);
+        make.bottom.equalTo(@-10);
+    }];
+    _regionButton.alpha = 1.0f;
     
     __block NSInteger index = 0;
     [messages each:^(SPMessage *message) {
