@@ -10,4 +10,6 @@
 
 @interface SPClient : AFHTTPRequestOperationManager
 - (void)startfetchingMessagesWithCompletion:(void(^)(NSError *error, id responseObject))completion;
+
++ (void)fetchMessages:(void(^)(BOOL dataFetched))completion;
 @end

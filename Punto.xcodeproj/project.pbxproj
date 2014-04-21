@@ -318,6 +318,9 @@
 					9D88D40018FD6404000F6629 = {
 						DevelopmentTeam = 743AM63YFU;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};

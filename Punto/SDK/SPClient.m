@@ -10,6 +10,8 @@
 
 #import "SPMessage.h"
 
+#import "Feed.h"
+
 @implementation SPClient {
     dispatch_queue_t _queue;
     
@@ -51,6 +53,8 @@
 }
 
 - (void)fetchMessages {
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) return;
+    
     if ([self.baseURL isFileURL]) {
         NSData *data = [NSData dataWithContentsOfURL:self.baseURL];
         NSError *error = nil;
@@ -67,6 +71,36 @@
             if (_completionCallback) _completionCallback(error, nil);
         }];
     }
+}
+
+#pragma mark - Background fetch
+
++ (void)fetchMessages:(void (^)(BOOL dataFetched))completion {
+    dispatch_group_t group = dispatch_group_create();
+    NSArray *feeds = [Feed MR_findByAttribute:@"notify" withValue:@(YES)];
+    for (NSInteger index = 0; index < feeds.count; index++) {
+        dispatch_group_enter(group);
+        [self fetchMessage:feeds[index] completion:^ {
+            dispatch_group_leave(group);
+        }];
+    }
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        if (completion) completion(feeds.count > 0);
+    });
+}
+
++ (void)fetchMessage:(Feed *)feed completion:(void (^)(void))completion {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:feed.URL.absoluteString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *messages = [SPMessage parseModels:responseObject];
+        BOOL shouldProcess = [feed shouldProcessMessages:messages];
+        if (shouldProcess) {
+        }
+        if (completion) completion();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) completion();
+    }];
 }
 
 #pragma mark - Batch

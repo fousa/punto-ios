@@ -11,6 +11,8 @@
 
 #import "AppDelegate.h"
 
+#import "SPClient.h"
+
 #import "MapViewController.h"
 
 #import "SPBarNotification.h"
@@ -24,6 +26,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
     [self setupMagicalRecord];
     [self setupEnsembles];
     
@@ -46,6 +50,13 @@
         [self syncWithCompletion:^{
             [[UIApplication sharedApplication] endBackgroundTask:identifier];
         }];
+    }];
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [SPClient fetchMessages:^(BOOL dataFetched) {
+        NSLog(@"-- dataFetched %i", dataFetched);
+        completionHandler(dataFetched ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
     }];
 }
 
