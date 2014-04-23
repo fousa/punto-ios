@@ -53,6 +53,7 @@
 }
 
 - (void)fetchMessages {
+    // Only perform this fetch when in the foreground
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) return;
     
     if ([self.baseURL isFileURL]) {

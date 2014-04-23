@@ -55,7 +55,6 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [SPClient fetchMessages:^(BOOL dataFetched) {
-        NSLog(@"-- dataFetched %i", dataFetched);
         completionHandler(dataFetched ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
     }];
 }
