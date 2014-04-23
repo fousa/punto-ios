@@ -16,9 +16,14 @@
 
 + (NSArray *)parseModels:(NSDictionary *)params {
     NSMutableArray *list = @[].mutableCopy;
-    [params[@"response"][@"feedMessageResponse"][@"messages"][@"message"] each:^(NSDictionary *modelParams) {
-        [list addObject:[self parse:modelParams]];
-    }];
+    id messages = params[@"response"][@"feedMessageResponse"][@"messages"][@"message"];
+    if ([messages isKindOfClass:[NSArray class]]) {
+        [messages each:^(NSDictionary *modelParams) {
+            [list addObject:[self parse:modelParams]];
+        }];
+    } else if (messages) {
+        [list addObject:[self parse:messages]];
+    }
     return list;
 }
 
