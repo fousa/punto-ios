@@ -13,14 +13,21 @@
 @implementation SPParser
 
 + (void)parse:(NSArray *)messages completion:(void(^)(NSError *error, MKPolyline *path, NSArray *messages))completion {
-    CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * messages.count);
+    NSInteger count = messages.count == 1 ? 2 : messages.count;
+    CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * count);
     for(int i = 0; i < messages.count; i++) {
         SPMessage *message = messages[i];
         CLLocationCoordinate2D coordinate = [message coordinate];
         coordinates[i] = coordinate;
     }
     
-    MKPolyline *path = [MKPolyline polylineWithCoordinates:coordinates count:messages.count];
+    if (messages.count == 1) {
+        SPMessage *message = messages[0];
+        CLLocationCoordinate2D coordinate = [message coordinate];
+        coordinates[1] = coordinate;
+    }
+    
+    MKPolyline *path = [MKPolyline polylineWithCoordinates:coordinates count:count];
     free(coordinates);
     
     dispatch_async_main(^{
