@@ -86,7 +86,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localSaveOccurred:) name:CDEMonitoredManagedObjectContextDidSaveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cloudDataDidDownload:) name:CDEICloudFileSystemDidDownloadFilesNotification object:nil];
 
-    
     [self syncWithCompletion:nil];
 }
 
@@ -101,17 +100,19 @@
 - (void)syncWithCompletion:(void(^)(void))completion {
     if (_ensemble.isMerging) return;
     
-    if (_ensemble.isLeeched) {
-        [_ensemble mergeWithCompletion:^(NSError *error) {
-            if (error) NSLog(@"Error in merge: %@", error);
-            if (completion) completion();
-        }];
-    } else {
-        [_ensemble leechPersistentStoreWithCompletion:^(NSError *error) {
-            if (error) NSLog(@"Error in leech: %@", error);
-            if (completion) completion();
-        }];
-    }
+    dispatch_async_main(^{
+        if (_ensemble.isLeeched) {
+            [_ensemble mergeWithCompletion:^(NSError *error) {
+                if (error) NSLog(@"Error in merge: %@", error);
+                if (completion) completion();
+            }];
+        } else {
+            [_ensemble leechPersistentStoreWithCompletion:^(NSError *error) {
+                if (error) NSLog(@"Error in leech: %@", error);
+                if (completion) completion();
+            }];
+        }
+    });
 }
 
 - (void)persistentStoreEnsembleWillImportStore:(CDEPersistentStoreEnsemble *)ensemble {
