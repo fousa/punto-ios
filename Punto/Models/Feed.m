@@ -2,20 +2,16 @@
 
 #import "SPMessage.h"
 
+#import "NSString+URL.h"
+
 @implementation Feed
 
 - (NSURL *)URL {
     if (kUseLocalFile) {
-        return [[NSBundle mainBundle] URLForResource:@"ls8" withExtension:@"json"];
+        return [NSURL fileURLWithPath:[self.link formatWithToken]];
     } else {
-        static NSString *apiURLString = @"https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/";
-        return [NSURL URLWithString:[apiURLString stringByAppendingString:[self extractToken]]];
+        return [NSURL URLWithString:[self.link formatWithToken]];
     }
-}
-
-- (NSString *)extractToken {
-    static NSString *mainURLString = @"http://share.findmespot.com/shared/faces/viewspots.jsp?glId=";
-    return [self.link stringByReplacingOccurrencesOfString:mainURLString withString:@""];
 }
 
 #pragma mark - Processing

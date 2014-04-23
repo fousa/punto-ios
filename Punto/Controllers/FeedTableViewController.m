@@ -13,6 +13,8 @@
 
 #import "Feed.h"
 
+#import "SPClient.h"
+
 #import "NSString+URL.h"
 
 @interface FeedTableViewController ()
@@ -61,23 +63,35 @@
 - (void)didPressSave:(id)sender {
     if (![self validate]) return;
     
-    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-        Feed *feed = nil;
-        if (_feed) {
-            feed = [_feed MR_inContext:localContext];
-        } else {
-            feed = [Feed MR_createInContext:localContext];
-        }
-        feed.name = [self name];
-        feed.link = [self link];
-        feed.notifyValue = [self notify];
-    }];
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activity startAnimating];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activity];
     
-    if (_feed) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    NSString *URLString = [[self link] formatWithToken];
+    [SPClient fetchFeed:[NSURL URLWithString:URLString] completion:^(BOOL success) {
+        if (success) {
+            [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+                Feed *feed = nil;
+                if (_feed) {
+                    feed = [_feed MR_inContext:localContext];
+                } else {
+                    feed = [Feed MR_createInContext:localContext];
+                }
+                feed.name = [self name];
+                feed.link = [self link];
+                feed.notifyValue = [self notify];
+            }];
+            
+            if (_feed) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            } else {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        } else {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(didPressSave:)];
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"There was a problem connecting to the Spot service, please fill in the correct URL.", @"There was a problem connecting to the Spot service, please fill in the correct URL.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
+        }
+    }];
 }
 
 #pragma mark - Table view data source

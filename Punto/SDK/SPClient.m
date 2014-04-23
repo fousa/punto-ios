@@ -111,6 +111,21 @@
     }];
 }
 
++ (void)fetchFeed:(NSURL *)URL completion:(void (^)(BOOL success))completion {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *URLString = [URL.absoluteString stringByAppendingPathComponent:@"message.json"];
+    [manager GET:URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (responseObject[@"response"] && responseObject[@"response"][@"errors"]) {
+            NSDictionary *errors = responseObject[@"response"][@"errors"];
+            if (completion) completion(![errors[@"error"][@"code"] isEqualToString:@"E-0160"]);
+        } else {
+            if (completion) completion(YES);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) completion(NO);
+    }];
+}
+
 #pragma mark - Batch
 
 - (void)addToQueue:(void (^)(void))block {

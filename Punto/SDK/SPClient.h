@@ -12,4 +12,5 @@
 - (void)startfetchingMessagesWithCompletion:(void(^)(NSError *error, id responseObject))completion;
 
 + (void)fetchMessages:(void(^)(BOOL dataFetched))completion;
++ (void)fetchFeed:(NSURL *)URL completion:(void (^)(BOOL success))completion;
 @end

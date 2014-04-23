@@ -8,4 +8,6 @@
 
 @interface NSString (URL)
 - (BOOL)isValidURL;
+
+- (NSString *)formatWithToken;
 @end
