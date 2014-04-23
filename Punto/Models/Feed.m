@@ -5,10 +5,12 @@
 @implementation Feed
 
 - (NSURL *)URL {
-    return [[NSBundle mainBundle] URLForResource:@"ls8" withExtension:@"json"];
-    
-//    static NSString *apiURLString = @"https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/";
-//    return [NSURL URLWithString:[apiURLString stringByAppendingString:[self extractToken]]];
+    if (kUseLocalFile) {
+        return [[NSBundle mainBundle] URLForResource:@"ls8" withExtension:@"json"];
+    } else {
+        static NSString *apiURLString = @"https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/";
+        return [NSURL URLWithString:[apiURLString stringByAppendingString:[self extractToken]]];
+    }
 }
 
 - (NSString *)extractToken {

@@ -8,3 +8,5 @@
 
 static NSString *kUbiquityContainerIdentifier = @"";
 static NSString *kDataChangedNotification = @"kDataChangedNotification";
+
+static BOOL kUseLocalFile = NO;
