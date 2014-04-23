@@ -97,6 +97,12 @@
         NSArray *messages = [SPMessage parseModels:responseObject];
         BOOL shouldProcess = [feed shouldProcessMessages:messages];
         if (shouldProcess) {
+            UILocalNotification *localNotification = [UILocalNotification new];
+            localNotification.fireDate = [NSDate date];
+            localNotification.timeZone = [NSTimeZone systemTimeZone];
+            localNotification.alertAction = NSLocalizedString(@"Show", @"Show");
+            localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"We noticed some movement by %@", @"We noticed some movement in the '%@' feed."), feed.name];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
         if (completion) completion();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
