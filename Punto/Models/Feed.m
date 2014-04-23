@@ -19,7 +19,7 @@
 #pragma mark - Processing
 
 - (BOOL)shouldProcessMessages:(NSArray *)messages {
-    SPMessage *lastMessage = [messages first];
+    SPMessage *lastMessage = [messages firstObject];
     if (lastMessage && (IsEmpty(self.lastUpdated) || [lastMessage.date compare:self.lastUpdated] == NSOrderedDescending)) {
         [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
             Feed *innerFeed = [self MR_inContext:localContext];
