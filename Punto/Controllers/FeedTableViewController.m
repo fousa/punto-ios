@@ -115,7 +115,7 @@
 }
 
 - (BOOL)notify {
-    SwitchTableViewCell *notifyCell =(SwitchTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    SwitchTableViewCell *notifyCell =(SwitchTableViewCell *) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     return [notifyCell value];
 }
 
