@@ -92,7 +92,8 @@
 
 + (void)fetchMessage:(Feed *)feed completion:(void (^)(void))completion {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:feed.URL.absoluteString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *URLString = [feed.URL.absoluteString stringByAppendingPathComponent:@"message.json"];
+    [manager GET:URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *messages = [SPMessage parseModels:responseObject];
         BOOL shouldProcess = [feed shouldProcessMessages:messages];
         if (shouldProcess) {
