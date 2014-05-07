@@ -102,7 +102,8 @@
             localNotification.fireDate = [NSDate date];
             localNotification.timeZone = [NSTimeZone systemTimeZone];
             localNotification.alertAction = NSLocalizedString(@"Show", @"Show");
-            localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"We noticed some movement by %@", @"We noticed some movement in the '%@' feed."), feed.name];
+            localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"We noticed some movement in the '%@' feed.", @"We noticed some movement in the '%@' feed."), feed.name];
+            localNotification.userInfo = @{ kSpotUniqueIdentifier : feed.uniqueIdentifier };
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
         if (completion) completion();
