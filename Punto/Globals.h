@@ -7,8 +7,12 @@
 //
 
 static NSString *kUbiquityContainerIdentifier = @"";
+
+// Notifications
 static NSString *kDataChangedNotification = @"kDataChangedNotification";
 
-static BOOL kUseLocalFile = NO;
+// Debugging
+static BOOL kUseLocalFile = YES;
+
 // Keys
 static NSString *kSpotUniqueIdentifier = @"kSpotUniqueIdentifier";
