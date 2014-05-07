@@ -53,6 +53,11 @@
     }];
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
+    [mapViewcontroller startProcessing];
+}
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [SPClient fetchMessages:^(BOOL dataFetched) {
         completionHandler(dataFetched ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);

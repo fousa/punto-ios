@@ -7,4 +7,5 @@
 //
 
 @interface MapViewController : UIViewController
+- (void)startProcessing;
 @end

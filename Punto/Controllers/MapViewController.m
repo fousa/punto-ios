@@ -9,7 +9,6 @@
 #import <MapKit/MapKit.h>
 
 #import "MapViewController.h"
-#import "FeedsTableViewController.h"
 
 #import "SPClient.h"
 #import "SPParser.h"
@@ -21,7 +20,7 @@
 
 #import "SPAnnotation.h"
 
-@interface MapViewController () <MKMapViewDelegate, FeedsTableViewControllerDelegate>
+@interface MapViewController () <MKMapViewDelegate>
 @end
 
 @implementation MapViewController {
@@ -94,9 +93,15 @@
     [self resetData];
     _feed = feed;
     
-    __weak MapViewController *weakSelf = self;
     _client = [[SPClient alloc] initWithBaseURL:feed.URL];
     _initialDisplay = YES;
+    [self startProcessing];
+}
+
+- (void)startProcessing {
+    if (!_client) return;
+    
+    __weak MapViewController *weakSelf = self;
     [_client startfetchingMessagesWithCompletion:^(NSError *error, id responseObject) {
         NSArray *messages = responseObject;
         if (error || messages.count == 0) {
