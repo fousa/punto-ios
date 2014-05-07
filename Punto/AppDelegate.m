@@ -13,6 +13,8 @@
 
 #import "SPClient.h"
 
+#import "Feed.h"
+
 #import "MapViewController.h"
 
 #import "SPBarNotification.h"
@@ -56,6 +58,17 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
     [mapViewcontroller startProcessing];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSString *identifier = notification.userInfo[kSpotUniqueIdentifier];
+    if (IsEmpty(identifier)) return;
+    
+    Feed *feed = [Feed MR_findFirstByAttribute:@"uniqueIdentifier" withValue:identifier];
+    if (IsEmpty(feed)) return;
+    
+    MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
+    [mapViewcontroller feedsController:nil didSelectFeed:feed];
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

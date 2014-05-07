@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Fousa. All rights reserved.
 //
 
-@interface MapViewController : UIViewController
+#import "FeedsTableViewController.h"
+
+@interface MapViewController : UIViewController <FeedsTableViewControllerDelegate>
 - (void)startProcessing;
 @end
