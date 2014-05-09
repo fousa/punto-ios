@@ -21,6 +21,8 @@
 #pragma mark - Messages
 
 + (void)fetchMessagesForFeeds:(NSArray *)feeds completion:(void (^)(BOOL dataFetched))completion {
+    NSLog(@"-- fetchMessagesForFeeds:completion:");
+    
     dispatch_group_t group = dispatch_group_create();
     
     for (Feed *feed in feeds) {
@@ -36,6 +38,8 @@
 }
 
 + (void)fetchMessagesForFeed:(Feed *)feed completion:(void (^)(NSError *error, NSArray *messages))completion {
+    NSLog(@"-- fetchMessagesForFeed:completion:");
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *URLString = [feed.URL.absoluteString stringByAppendingPathComponent:@"message.json"];
     [manager GET:URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -51,6 +55,8 @@
 }
 
 + (void)fetchFeedFromLink:(NSString *)link completion:(void (^)(NSError *error, SPFeed *feed))completion {
+    NSLog(@"-- fetchFeedFromLink:completion:");
+    
     NSString *URLString = [link formatWithToken];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     URLString = [URLString stringByAppendingPathComponent:@"message.json"];
