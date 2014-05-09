@@ -20,6 +20,8 @@
 
 #import "SPAnnotation.h"
 
+#import "SPOperation.h"
+
 @interface MapViewController () <MKMapViewDelegate>
 @end
 
@@ -79,6 +81,14 @@
     [_openButton sizeToFit];
     [_regionButton setTitle:NSLocalizedString(@"Region", @"Region") forState:UIControlStateNormal];
     [_regionButton sizeToFit];
+    
+    [self processFeed:_feed];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[SPOperation sharedInstance] stop];
 }
 
 #pragma mark - Layout
@@ -91,29 +101,24 @@
 
 - (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
     [self resetData];
-    _feed = feed;
     
-    _client = [[SPClient alloc] initWithBaseURL:feed.URL];
     _initialDisplay = YES;
-    [self startProcessing];
+    [self processFeed:feed];
 }
 
-- (void)startProcessing {
-    if (!_client) return;
+- (void)processFeed:(Feed *)feed {
+    if (!feed) return;
+    
+    _feed = feed;
     
     __weak MapViewController *weakSelf = self;
-    [_client startfetchingMessagesWithCompletion:^(NSError *error, id responseObject) {
-        NSArray *messages = responseObject;
-        if (error || messages.count == 0) {
-            [weakSelf resetInitialButtons];
-        } else if (!error && messages.count > 0) {
-            [weakSelf processMessages:messages];
-        }
+    [[SPOperation sharedInstance] start:^{
+        [weakSelf performFetch];
     }];
 }
 
 - (void)processMessages:(NSArray *)messages {
-    BOOL shouldProcess = [_feed shouldProcessMessages:messages];
+    BOOL shouldProcess = [_feed processMessages:messages];
     if (_initialDisplay || shouldProcess) {
         __weak MapViewController *weakSelf = self;
         _initialDisplay = NO;
@@ -147,6 +152,19 @@
 
 #pragma mark - Map
 
+- (void)performFetch {
+    if (IsEmpty(_feed)) return;
+    
+    __weak MapViewController *weakSelf = self;
+    [SPClient fetchMessagesForFeed:_feed completion:^(NSError *error, NSArray *messages) {
+        if (error || messages.count == 0) {
+            [weakSelf resetInitialButtons];
+        } else if (!error && messages.count > 0) {
+            [weakSelf processMessages:messages];
+        }
+    }];
+}
+
 - (void)resetData {
     [_mapView removeOverlays:_mapView.overlays];
     [_mapView removeAnnotations:_mapView.annotations];
@@ -156,6 +174,9 @@
 }
 
 - (void)renderPath:(MKPolyline *)path withMessages:(NSArray *)messages {
+    [_mapView removeOverlays:_mapView.overlays];
+    [_mapView removeAnnotations:_mapView.annotations];
+    
     [_fullConstraint uninstall];
     [_openButton sizeToFit];
     [_openButton mas_updateConstraints:^(MASConstraintMaker *make) {

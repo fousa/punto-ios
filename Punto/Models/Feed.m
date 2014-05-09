@@ -7,16 +7,12 @@
 @implementation Feed
 
 - (NSURL *)URL {
-    if (kUseLocalFile) {
-        return [NSURL fileURLWithPath:[self.link formatWithToken]];
-    } else {
-        return [NSURL URLWithString:[self.link formatWithToken]];
-    }
+    return [NSURL URLWithString:[self.link formatWithToken]];
 }
 
 #pragma mark - Processing
 
-- (BOOL)shouldProcessMessages:(NSArray *)messages {
+- (BOOL)processMessages:(NSArray *)messages {
     SPMessage *lastMessage = [messages firstObject];
     if (lastMessage && (IsEmpty(self.lastUpdated) || [lastMessage.date compare:self.lastUpdated] == NSOrderedDescending)) {
         [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {

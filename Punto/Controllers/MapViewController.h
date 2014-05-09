@@ -9,5 +9,5 @@
 #import "FeedsTableViewController.h"
 
 @interface MapViewController : UIViewController <FeedsTableViewControllerDelegate>
-- (void)startProcessing;
+- (void)performFetch;
 @end

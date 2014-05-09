@@ -68,8 +68,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activity];
     
     NSString *URLString = [[self link] formatWithToken];
-    [SPClient fetchFeed:[NSURL URLWithString:URLString] completion:^(BOOL success) {
-        if (success) {
+    [SPClient fetchFeedFromLink:URLString completion:^(NSError *error, SPFeed *innerFeed) {
+        if (error) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(didPressSave:)];
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"There was a problem connecting to the Spot service, please fill in the correct URL.", @"There was a problem connecting to the Spot service, please fill in the correct URL.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
+        } else {
             [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
                 Feed *feed = nil;
                 if (_feed) {
@@ -87,9 +90,6 @@
             } else {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
-        } else {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(didPressSave:)];
-            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"There was a problem connecting to the Spot service, please fill in the correct URL.", @"There was a problem connecting to the Spot service, please fill in the correct URL.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
         }
     }];
 }
