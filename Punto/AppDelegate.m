@@ -57,7 +57,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
-    [mapViewcontroller startProcessing];
+    [mapViewcontroller performFetch];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -72,9 +72,29 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    [SPClient fetchMessages:^(BOOL dataFetched) {
-        completionHandler(dataFetched ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
-    }];
+    dispatch_group_t group = dispatch_group_create();
+    
+    NSArray *feeds = [Feed MR_findByAttribute:@"notify" withValue:@(YES)];
+    for (Feed *feed in feeds) {
+        dispatch_group_enter(group);
+        [SPClient fetchMessagesForFeed:feed completion:^(NSError *error, NSArray *messages) {
+            BOOL shouldProcess = [feed processMessages:messages];
+            if (shouldProcess) {
+                UILocalNotification *localNotification = [UILocalNotification new];
+                localNotification.fireDate = [NSDate date];
+                localNotification.timeZone = [NSTimeZone systemTimeZone];
+                localNotification.alertAction = NSLocalizedString(@"Show", @"Show");
+                localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"We noticed some movement in the '%@' feed.", @"We noticed some movement in the '%@' feed."), feed.name];
+                localNotification.userInfo = @{ kSpotUniqueIdentifier : feed.uniqueIdentifier };
+                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+            }
+            dispatch_group_leave(group);
+        }];
+    }
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        completionHandler(feeds.count > 0 ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultNoData);
+    });
 }
 
 #pragma mark - Appearances

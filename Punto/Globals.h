@@ -16,3 +16,6 @@ static BOOL kUseLocalFile = YES;
 
 // Keys
 static NSString *kSpotUniqueIdentifier = @"kSpotUniqueIdentifier";
+
+// Errors
+static NSString *kErrorDomain = @"be.fousa.punto.error";

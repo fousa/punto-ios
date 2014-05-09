@@ -20,6 +20,8 @@
 
 #import "SPAnnotation.h"
 
+#import "SPOperation.h"
+
 @interface MapViewController () <MKMapViewDelegate>
 @end
 
@@ -91,29 +93,22 @@
 
 - (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
     [self resetData];
-    _feed = feed;
     
-    _client = [[SPClient alloc] initWithBaseURL:feed.URL];
     _initialDisplay = YES;
-    [self startProcessing];
+    [self processFeed:feed];
 }
 
-- (void)startProcessing {
-    if (!_client) return;
+- (void)processFeed:(Feed *)feed {
+    _feed = feed;
     
     __weak MapViewController *weakSelf = self;
-    [_client startfetchingMessagesWithCompletion:^(NSError *error, id responseObject) {
-        NSArray *messages = responseObject;
-        if (error || messages.count == 0) {
-            [weakSelf resetInitialButtons];
-        } else if (!error && messages.count > 0) {
-            [weakSelf processMessages:messages];
-        }
+    [[SPOperation sharedInstance] add:^{
+        [weakSelf performFetch];
     }];
 }
 
 - (void)processMessages:(NSArray *)messages {
-    BOOL shouldProcess = [_feed shouldProcessMessages:messages];
+    BOOL shouldProcess = [_feed processMessages:messages];
     if (_initialDisplay || shouldProcess) {
         __weak MapViewController *weakSelf = self;
         _initialDisplay = NO;
@@ -146,6 +141,19 @@
 }
 
 #pragma mark - Map
+
+- (void)performFetch {
+    if (IsEmpty(_feed)) return;
+    
+    __weak MapViewController *weakSelf = self;
+    [SPClient fetchMessagesForFeed:_feed completion:^(NSError *error, NSArray *messages) {
+        if (error || messages.count == 0) {
+            [weakSelf resetInitialButtons];
+        } else if (!error && messages.count > 0) {
+            [weakSelf processMessages:messages];
+        }
+    }];
+}
 
 - (void)resetData {
     [_mapView removeOverlays:_mapView.overlays];

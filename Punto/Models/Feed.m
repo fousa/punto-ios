@@ -16,7 +16,7 @@
 
 #pragma mark - Processing
 
-- (BOOL)shouldProcessMessages:(NSArray *)messages {
+- (BOOL)processMessages:(NSArray *)messages {
     SPMessage *lastMessage = [messages firstObject];
     if (lastMessage && (IsEmpty(self.lastUpdated) || [lastMessage.date compare:self.lastUpdated] == NSOrderedDescending)) {
         [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {

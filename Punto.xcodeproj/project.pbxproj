@@ -20,6 +20,9 @@
 		9D0838CA18FD7926009963C2 /* ls8.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D0838C918FD7926009963C2 /* ls8.json */; };
 		9D0838CF18FD7BDB009963C2 /* SPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0838CE18FD7BDB009963C2 /* SPParser.m */; };
 		9D0838D118FD7D5D009963C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0838D018FD7D5D009963C2 /* CoreLocation.framework */; };
+		9D0B9555191D1146003EACF2 /* NSError+SPErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B9554191D1146003EACF2 /* NSError+SPErrors.m */; };
+		9D0B9558191D1870003EACF2 /* SPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B9557191D1870003EACF2 /* SPOperation.m */; };
+		9D0B955B191D1E64003EACF2 /* SPFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B955A191D1E64003EACF2 /* SPFeed.m */; };
 		9D28E48518FD6F2C002173D2 /* SPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48418FD6F2C002173D2 /* SPClient.m */; };
 		9D28E48918FD73F8002173D2 /* SPModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48818FD73F8002173D2 /* SPModel.m */; };
 		9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D28E48B18FD7443002173D2 /* SPMessage.m */; };
@@ -62,6 +65,12 @@
 		9D0838CD18FD7BDB009963C2 /* SPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPParser.h; sourceTree = "<group>"; };
 		9D0838CE18FD7BDB009963C2 /* SPParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPParser.m; sourceTree = "<group>"; };
 		9D0838D018FD7D5D009963C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9D0B9553191D1146003EACF2 /* NSError+SPErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+SPErrors.h"; sourceTree = "<group>"; };
+		9D0B9554191D1146003EACF2 /* NSError+SPErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+SPErrors.m"; sourceTree = "<group>"; };
+		9D0B9556191D1870003EACF2 /* SPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPOperation.h; sourceTree = "<group>"; };
+		9D0B9557191D1870003EACF2 /* SPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPOperation.m; sourceTree = "<group>"; };
+		9D0B9559191D1E64003EACF2 /* SPFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPFeed.h; sourceTree = "<group>"; };
+		9D0B955A191D1E64003EACF2 /* SPFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPFeed.m; sourceTree = "<group>"; };
 		9D28E48318FD6F2C002173D2 /* SPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPClient.h; sourceTree = "<group>"; };
 		9D28E48418FD6F2C002173D2 /* SPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPClient.m; sourceTree = "<group>"; };
 		9D28E48718FD73F8002173D2 /* SPModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPModel.h; sourceTree = "<group>"; };
@@ -174,6 +183,8 @@
 			children = (
 				9D28E48318FD6F2C002173D2 /* SPClient.h */,
 				9D28E48418FD6F2C002173D2 /* SPClient.m */,
+				9D0B9556191D1870003EACF2 /* SPOperation.h */,
+				9D0B9557191D1870003EACF2 /* SPOperation.m */,
 				9D28E48618FD73C0002173D2 /* Models */,
 				9D28E48D18FD74E2002173D2 /* Categories */,
 			);
@@ -187,6 +198,8 @@
 				9D28E48818FD73F8002173D2 /* SPModel.m */,
 				9D28E48A18FD7443002173D2 /* SPMessage.h */,
 				9D28E48B18FD7443002173D2 /* SPMessage.m */,
+				9D0B9559191D1E64003EACF2 /* SPFeed.h */,
+				9D0B955A191D1E64003EACF2 /* SPFeed.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -196,6 +209,8 @@
 			children = (
 				9D28E48E18FD7500002173D2 /* NSString+SPFormatter.h */,
 				9D28E48F18FD7500002173D2 /* NSString+SPFormatter.m */,
+				9D0B9553191D1146003EACF2 /* NSError+SPErrors.h */,
+				9D0B9554191D1146003EACF2 /* NSError+SPErrors.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -400,14 +415,17 @@
 				9D46A07518FD6A9D00C5B228 /* MapViewController.m in Sources */,
 				9D0838CF18FD7BDB009963C2 /* SPParser.m in Sources */,
 				9D88D41518FD6405000F6629 /* AppDelegate.m in Sources */,
+				9D0B955B191D1E64003EACF2 /* SPFeed.m in Sources */,
 				9D88D41118FD6405000F6629 /* main.m in Sources */,
 				9D28E48918FD73F8002173D2 /* SPModel.m in Sources */,
 				48FAB45318FDBCE600581F7B /* FeedTableViewController.m in Sources */,
 				48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */,
+				9D0B9555191D1146003EACF2 /* NSError+SPErrors.m in Sources */,
 				9D67176918FED256001252BC /* SPAnnotation.m in Sources */,
 				9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */,
 				48FAB45618FDBF4A00581F7B /* TextTableViewCell.m in Sources */,
 				48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */,
+				9D0B9558191D1870003EACF2 /* SPOperation.m in Sources */,
 				481863DC1905A36100F92177 /* NSString+URL.m in Sources */,
 				9D28E49018FD7500002173D2 /* NSString+SPFormatter.m in Sources */,
 				481863DF1905AB4300F92177 /* SwitchTableViewCell.m in Sources */,
