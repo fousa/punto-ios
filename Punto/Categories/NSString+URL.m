@@ -32,8 +32,8 @@
 }
 
 - (NSString *)formatWithToken {
-    if (kUseLocalFile) {
-        return [[NSBundle mainBundle] pathForResource:@"ls8" ofType:@"json"];
+    if (kUseLocalServer) {
+        return @"http://localhost:4567/";
     } else {
         static NSString *apiURLString = @"https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/";
         return [apiURLString stringByAppendingString:[self extractToken]];

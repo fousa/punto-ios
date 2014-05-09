@@ -7,11 +7,7 @@
 @implementation Feed
 
 - (NSURL *)URL {
-    if (kUseLocalFile) {
-        return [NSURL fileURLWithPath:[self.link formatWithToken]];
-    } else {
-        return [NSURL URLWithString:[self.link formatWithToken]];
-    }
+    return [NSURL URLWithString:[self.link formatWithToken]];
 }
 
 #pragma mark - Processing
