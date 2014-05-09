@@ -10,6 +10,8 @@
 
 @implementation SPOperation {
     dispatch_queue_t _queue;
+    
+    BOOL _stopAddingToQueue;
 }
 
 #pragma mark - Initialization
@@ -34,18 +36,29 @@
 #pragma mark - Batch
 
 - (void)add:(void(^)(void))batchBlock {
+    if (_stopAddingToQueue) return;
+    
     __weak id _blockedSelf = self;
     [self addToQueue:^{
         if (batchBlock) batchBlock();
     }];
     [self addToQueue:^{
-        [NSThread sleepForTimeInterval:60.0f];
+        [NSThread sleepForTimeInterval:kBatchTimeout];
         [_blockedSelf add:batchBlock];
     }];
 }
 
 - (void)addToQueue:(void (^)(void))block {
     dispatch_async(_queue, block);
+}
+
+- (void)start:(void(^)(void))batchBlock {
+    _stopAddingToQueue = NO;
+    [self add:batchBlock];
+}
+
+- (void)stop {
+    _stopAddingToQueue = YES;
 }
 
 @end

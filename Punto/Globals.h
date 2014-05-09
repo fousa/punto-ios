@@ -6,10 +6,14 @@
 //  Copyright (c) 2014 Fousa. All rights reserved.
 //
 
+// iCloud
 static NSString *kUbiquityContainerIdentifier = @"";
 
 // Notifications
 static NSString *kDataChangedNotification = @"kDataChangedNotification";
+
+// Settings
+static BOOL kBatchTimeout = 3.0f;
 
 // Debugging
 static BOOL kUseLocalServer = YES;

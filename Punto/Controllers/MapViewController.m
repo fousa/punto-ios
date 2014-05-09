@@ -81,6 +81,14 @@
     [_openButton sizeToFit];
     [_regionButton setTitle:NSLocalizedString(@"Region", @"Region") forState:UIControlStateNormal];
     [_regionButton sizeToFit];
+    
+    [self processFeed:_feed];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[SPOperation sharedInstance] stop];
 }
 
 #pragma mark - Layout
@@ -99,10 +107,12 @@
 }
 
 - (void)processFeed:(Feed *)feed {
+    if (!feed) return;
+    
     _feed = feed;
     
     __weak MapViewController *weakSelf = self;
-    [[SPOperation sharedInstance] add:^{
+    [[SPOperation sharedInstance] start:^{
         [weakSelf performFetch];
     }];
 }
@@ -164,6 +174,9 @@
 }
 
 - (void)renderPath:(MKPolyline *)path withMessages:(NSArray *)messages {
+    [_mapView removeOverlays:_mapView.overlays];
+    [_mapView removeAnnotations:_mapView.annotations];
+    
     [_fullConstraint uninstall];
     [_openButton sizeToFit];
     [_openButton mas_updateConstraints:^(MASConstraintMaker *make) {

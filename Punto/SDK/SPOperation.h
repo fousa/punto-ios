@@ -9,5 +9,6 @@
 @interface SPOperation: NSObject
 + (id)sharedInstance;
 
-- (void)add:(void(^)(void))batchBlock;
+- (void)start:(void(^)(void))batchBlock;
+- (void)stop;
 @end
