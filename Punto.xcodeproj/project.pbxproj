@@ -12,6 +12,7 @@
 		481863DF1905AB4300F92177 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 481863DE1905AB4300F92177 /* SwitchTableViewCell.m */; };
 		487EEDB119055B0C00CA0625 /* SPBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 487EEDB019055B0C00CA0625 /* SPBarNotification.m */; };
 		48F9AEF0191F9D4D004354F5 /* FeedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F9AEEF191F9D4D004354F5 /* FeedCollectionViewCell.m */; };
+		48F9AEF3191F9FC7004354F5 /* FeedCollectionViewlayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F9AEF2191F9FC7004354F5 /* FeedCollectionViewlayout.m */; };
 		48FAB44518FDA30000581F7B /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44418FDA30000581F7B /* FeedsTableViewController.m */; };
 		48FAB44918FDB9B700581F7B /* Punto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44718FDB9B700581F7B /* Punto.xcdatamodeld */; };
 		48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FAB44B18FDBA8D00581F7B /* _Feed.m */; };
@@ -51,6 +52,8 @@
 		487EEDB019055B0C00CA0625 /* SPBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBarNotification.m; sourceTree = "<group>"; };
 		48F9AEEE191F9D4D004354F5 /* FeedCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCollectionViewCell.h; sourceTree = "<group>"; };
 		48F9AEEF191F9D4D004354F5 /* FeedCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCollectionViewCell.m; sourceTree = "<group>"; };
+		48F9AEF1191F9FC7004354F5 /* FeedCollectionViewlayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCollectionViewlayout.h; sourceTree = "<group>"; };
+		48F9AEF2191F9FC7004354F5 /* FeedCollectionViewlayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCollectionViewlayout.m; sourceTree = "<group>"; };
 		48FAB44318FDA30000581F7B /* FeedsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsTableViewController.h; sourceTree = "<group>"; };
 		48FAB44418FDA30000581F7B /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
 		48FAB44818FDB9B700581F7B /* Punto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Punto.xcdatamodel; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				9D67176818FED256001252BC /* SPAnnotation.m */,
 				487EEDAF19055B0C00CA0625 /* SPBarNotification.h */,
 				487EEDB019055B0C00CA0625 /* SPBarNotification.m */,
+				48F9AEF1191F9FC7004354F5 /* FeedCollectionViewlayout.h */,
+				48F9AEF2191F9FC7004354F5 /* FeedCollectionViewlayout.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				9D67176918FED256001252BC /* SPAnnotation.m in Sources */,
 				9D28E48C18FD7443002173D2 /* SPMessage.m in Sources */,
 				48FAB45618FDBF4A00581F7B /* TextTableViewCell.m in Sources */,
+				48F9AEF3191F9FC7004354F5 /* FeedCollectionViewlayout.m in Sources */,
 				48FAB44E18FDBA8D00581F7B /* _Feed.m in Sources */,
 				9D0B9558191D1870003EACF2 /* SPOperation.m in Sources */,
 				481863DC1905A36100F92177 /* NSString+URL.m in Sources */,

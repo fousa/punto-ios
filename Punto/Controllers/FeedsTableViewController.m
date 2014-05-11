@@ -14,6 +14,8 @@
 
 #import "FeedCollectionViewCell.h"
 
+#import "FeedCollectionViewlayout.h"
+
 @interface FeedsTableViewController ()
 @end
 
@@ -24,26 +26,7 @@
 #pragma mark - View
 
 + (id)new {
-    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    
-    CGFloat padding = 0;
-    if (IsIPad()) {
-        padding = 20.0f;
-        CGFloat side = (punto.window.bounds.size.height - (padding * 6)) / 5;
-        layout.itemSize = CGSizeMake(side, side);
-    } else {
-        padding = 10.0f;
-        CGFloat side = (punto.window.bounds.size.width - (padding * 5)) / 4;
-        layout.itemSize = CGSizeMake(side, side);
-    }
-    
-    layout.minimumInteritemSpacing = padding;
-    layout.minimumLineSpacing = padding;
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    layout.sectionInset = UIEdgeInsetsMake(padding, padding, padding, padding);
-    
-    
-    return [[self alloc] initWithCollectionViewLayout:layout];
+    return [[self alloc] initWithCollectionViewLayout:[FeedCollectionViewlayout new]];
 }
 
 + (CGSize)deviceItemSize {
