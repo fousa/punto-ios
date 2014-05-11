@@ -8,6 +8,7 @@
 
 #import "FeedsTableViewController.h"
 #import "FeedTableViewController.h"
+#import "MapViewController.h"
 
 #import "Feed.h"
 
@@ -75,6 +76,12 @@
     }
 }
 
+- (void)presentMapController:(Feed *)feed {
+    MapViewController *controller = [MapViewController new];
+    controller.feed = feed;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -86,8 +93,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:FeedCellIdentifier];
-        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     Feed *feed = _feeds[indexPath.row];
     cell.textLabel.text = feed.name;
@@ -99,8 +105,7 @@
     if (tableView.editing) {
         [self presentFeedController:_feeds[indexPath.row]];
     } else {
-        if (_delegate) [_delegate feedsController:self didSelectFeed:_feeds[indexPath.row]];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self presentMapController:_feeds[indexPath.row]];
     }
 }
 
