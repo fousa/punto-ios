@@ -12,6 +12,8 @@
 
 #import "Feed.h"
 
+#import "FeedCollectionViewCell.h"
+
 @interface FeedsTableViewController ()
 @end
 
@@ -53,8 +55,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FeedCell"];
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"AddCell"];
     
     self.collectionView.backgroundColor = [UIColor redColor];
     
@@ -115,16 +115,9 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor blueColor];
+    FeedCollectionViewCell *cell = (FeedCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:cell.bounds];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.tag = 1;
-    [cell.contentView addSubview:label];
-    
-    Feed *feed = _feeds[indexPath.row];
-    label.text = feed.name;
+        [cell setLabelText:@"+"];
     
     return cell;
 }
