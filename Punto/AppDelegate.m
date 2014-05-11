@@ -71,7 +71,6 @@
     Feed *feed = [Feed MR_findFirstByAttribute:@"uniqueIdentifier" withValue:identifier];
     if (IsEmpty(feed)) return;
     
-    // TODO: Load loading the correct feed.
     UINavigationController *controller = (UINavigationController *)_window.rootViewController;
     if ([controller.topViewController isKindOfClass:[MapViewController class]]) {
         ((MapViewController *)controller.topViewController).feed = feed;
