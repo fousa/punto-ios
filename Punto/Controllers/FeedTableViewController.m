@@ -86,6 +86,7 @@
                 feed.notifyValue = [self notify];
             }];
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
             if (_feed) {
                 [self.navigationController popToRootViewControllerAnimated:YES];
             } else {
