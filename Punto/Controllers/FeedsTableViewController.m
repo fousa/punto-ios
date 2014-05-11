@@ -16,7 +16,7 @@
 
 #import "FeedCollectionViewlayout.h"
 
-@interface FeedsTableViewController ()
+@interface FeedsTableViewController () <UIGestureRecognizerDelegate>
 @end
 
 @implementation FeedsTableViewController {
@@ -40,6 +40,11 @@
     
     [self.collectionView registerClass:[FeedCollectionViewCell class] forCellWithReuseIdentifier:@"FeedCell"];
     
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
+    gesture.minimumPressDuration = .5;
+    gesture.delegate = self;
+    [self.collectionView addGestureRecognizer:gesture];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataChanged:) name:kDataChangedNotification object:nil];
 }
 
@@ -57,6 +62,17 @@
     return NO;
 }
 
+#pragma mark - Gestures
+
+- (void)longTap:(UIGestureRecognizer *)gesture {
+    CGPoint point = [gesture locationInView:self.collectionView];
+    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
+    if (indexPath && indexPath.row < _feeds.count) {
+        Feed *feed = _feeds[indexPath.row];
+        [self presentFeedController:feed];
+    }
+}
+
 #pragma mark - Notifications
 
 - (void)dataChanged:(NSNotification *)notification {
@@ -69,13 +85,9 @@
 - (void)presentFeedController:(Feed *)feed {
     FeedTableViewController *feedController = [FeedTableViewController new];
     feedController.feed = feed;
-    if (feed) {
-        [self.navigationController pushViewController:feedController animated:YES];
-    } else {
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
-        navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentViewController:navigationController animated:YES completion:nil];
-    }
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
+    navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)presentMapController:(Feed *)feed {
@@ -99,7 +111,6 @@
         Feed *feed = _feeds[indexPath.row];
         [cell setLabelText:feed.name];
     }
-    
 
     return cell;
 }

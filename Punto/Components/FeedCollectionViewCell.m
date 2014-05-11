@@ -8,8 +8,12 @@
 
 #import "FeedCollectionViewCell.h"
 
+#import "Feed.h"
+
 @implementation FeedCollectionViewCell {
     UILabel *_textLabel;
+    
+    Feed *_feed;
 }
 
 #pragma mark - Init

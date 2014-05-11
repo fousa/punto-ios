@@ -37,9 +37,9 @@
     if (_feed) {
         self.title = NSLocalizedString(@"Edit feed", @"Edit feed");
     } else {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(didPressCancel:)];
         self.title = NSLocalizedString(@"New feed", @"New feed");
     }
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(didPressCancel:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(didPressSave:)];
     
     [self.tableView reloadData];
@@ -87,11 +87,7 @@
             }];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
-            if (_feed) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            } else {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
