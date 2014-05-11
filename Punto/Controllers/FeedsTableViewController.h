@@ -8,6 +8,6 @@
 
 @class Feed;
 
-@interface FeedsTableViewController : UITableViewController
+@interface FeedsTableViewController : UICollectionViewController
 - (void)presentMapController:(Feed *)feed;
 @end
