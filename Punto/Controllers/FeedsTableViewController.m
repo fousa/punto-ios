@@ -54,10 +54,6 @@
 
 #pragma mark - Actions
 
-- (void)didPressClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)didPressAdd:(id)sender {
     [self presentFeedController:nil];
 }
@@ -133,7 +129,7 @@
     if (self.tableView.editing) {
         [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didPressAdd:)] animated:animated];
     } else {
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"Close") style:UIBarButtonItemStylePlain target:self action:@selector(didPressClose:)] animated:animated];
+        [self.navigationItem setLeftBarButtonItem:nil animated:animated];
     }
 }
 
