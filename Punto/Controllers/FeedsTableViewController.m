@@ -55,8 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    self.collectionView.backgroundColor = [UIColor redColor];
+    [self.collectionView registerClass:[FeedCollectionViewCell class] forCellWithReuseIdentifier:@"FeedCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataChanged:) name:kDataChangedNotification object:nil];
 }
@@ -82,12 +81,6 @@
     [self.collectionView reloadData];
 }
 
-#pragma mark - Actions
-
-- (void)didPressAdd:(id)sender {
-    [self presentFeedController:nil];
-}
-
 #pragma mark - Feed
 
 - (void)presentFeedController:(Feed *)feed {
@@ -111,19 +104,29 @@
 #pragma mark - Table view data source
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _feeds.count;
+    return _feeds.count + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FeedCollectionViewCell *cell = (FeedCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
     
+    if (indexPath.row == _feeds.count) {
         [cell setLabelText:@"+"];
+    } else {
+        Feed *feed = _feeds[indexPath.row];
+        [cell setLabelText:feed.name];
+    }
     
+
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self presentMapController:_feeds[indexPath.row]];
+    if (indexPath.row == _feeds.count) {
+        [self presentFeedController:nil];
+    } else {
+        [self presentMapController:_feeds[indexPath.row]];
+    }
     // TODO: Implement edit
     //[self presentFeedController:_feeds[indexPath.row]];
 }
