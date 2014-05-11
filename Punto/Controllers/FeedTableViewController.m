@@ -82,6 +82,7 @@
                 }
                 feed.name = [self name];
                 feed.link = [self link];
+                feed.uniqueIdentifier = [[self link] extractToken];
                 feed.notifyValue = [self notify];
             }];
             

@@ -14,4 +14,5 @@
 @property (nonatomic, strong) Feed *feed;
 
 - (void)performFetch;
+- (void)processFeed;
 @end

@@ -71,8 +71,14 @@
     Feed *feed = [Feed MR_findFirstByAttribute:@"uniqueIdentifier" withValue:identifier];
     if (IsEmpty(feed)) return;
     
-    MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
-    [mapViewcontroller feedsController:nil didSelectFeed:feed];
+    // TODO: Load loading the correct feed.
+    UINavigationController *controller = (UINavigationController *)_window.rootViewController;
+    if ([controller.topViewController isKindOfClass:[MapViewController class]]) {
+        ((MapViewController *)controller.topViewController).feed = feed;
+        [((MapViewController *)controller.topViewController) processFeed];
+    } else if ([controller.topViewController isKindOfClass:[FeedsTableViewController class]]) {
+        [((FeedsTableViewController *)controller.topViewController) presentMapController:feed];
+    }
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

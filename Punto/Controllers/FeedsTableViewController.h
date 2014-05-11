@@ -6,5 +6,8 @@
 //  Copyright (c) 2014 Fousa. All rights reserved.
 //
 
+@class Feed;
+
 @interface FeedsTableViewController : UITableViewController
+- (void)presentMapController:(Feed *)feed;
 @end

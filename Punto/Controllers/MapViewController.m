@@ -83,7 +83,7 @@
     [_regionButton setTitle:NSLocalizedString(@"Region", @"Region") forState:UIControlStateNormal];
     [_regionButton sizeToFit];
     
-    [self processFeed:_feed];
+    [self processFeed];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -101,14 +101,7 @@
 
 #pragma mark - Feeds Controller
 
-- (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
-    [self resetData];
-    
-    _initialDisplay = YES;
-    [self processFeed:feed];
-}
-
-- (void)processFeed:(Feed *)feed {
+- (void)processFeed {
     __weak MapViewController *weakSelf = self;
     [[SPOperation sharedInstance] start:^{
         [weakSelf performFetch];
