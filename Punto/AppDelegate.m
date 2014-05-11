@@ -16,6 +16,7 @@
 #import "Feed.h"
 
 #import "MapViewController.h"
+#import "FeedsTableViewController.h"
 
 #import "SPBarNotification.h"
 
@@ -36,7 +37,8 @@
     [self setAppearances];
     
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    _window.rootViewController = [MapViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[FeedsTableViewController new]];
+    _window.rootViewController = navigationController;
     [_window makeKeyAndVisible];
     
     return YES;
