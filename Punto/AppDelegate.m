@@ -58,8 +58,10 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
-    [mapViewcontroller performFetch];
+    UINavigationController *controller = (UINavigationController *)_window.rootViewController;
+    if ([controller.topViewController isKindOfClass:[MapViewController class]]) {
+        [((MapViewController *)controller.topViewController) performFetch];
+    }
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
