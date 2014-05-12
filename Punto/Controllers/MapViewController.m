@@ -33,7 +33,6 @@
     UIButton *_regionButton;
     
     SPClient *_client;
-    Feed *_feed;
     
     MASConstraint *_fullConstraint;
     
@@ -59,7 +58,8 @@
     [_openButton addTarget:self action:@selector(didPressOpen:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_openButton];
     [_openButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        _fullConstraint = make.edges.equalTo(weakSelf.view).with.insets((UIEdgeInsets) { 100, 50, 100, 50 });
+        make.right.equalTo(@-10);
+        make.bottom.equalTo(@-10);
     }];
     
     // Add region button
@@ -75,6 +75,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
     [_openButton setTitle:NSLocalizedString(@"Open", @"Open") forState:UIControlStateNormal];
@@ -82,10 +83,11 @@
     [_regionButton setTitle:NSLocalizedString(@"Region", @"Region") forState:UIControlStateNormal];
     [_regionButton sizeToFit];
     
-    [self processFeed:_feed];
+    [self processFeed];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
     [super viewWillDisappear:animated];
     
     [[SPOperation sharedInstance] stop];
@@ -99,18 +101,7 @@
 
 #pragma mark - Feeds Controller
 
-- (void)feedsController:(FeedsTableViewController *)controller didSelectFeed:(Feed *)feed {
-    [self resetData];
-    
-    _initialDisplay = YES;
-    [self processFeed:feed];
-}
-
-- (void)processFeed:(Feed *)feed {
-    if (!feed) return;
-    
-    _feed = feed;
-    
+- (void)processFeed {
     __weak MapViewController *weakSelf = self;
     [[SPOperation sharedInstance] start:^{
         [weakSelf performFetch];
@@ -131,23 +122,11 @@
 #pragma mark - Actions
 
 - (void)didPressOpen:(id)sender {
-    FeedsTableViewController *feedsController = [FeedsTableViewController new];
-    feedsController.delegate = self;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedsController];
-    navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didPressRegion:(id)sender {
     [_mapView setVisibleMapRect:_path.boundingMapRect edgePadding:(UIEdgeInsets) { 40, 20, 20, 20 } animated:YES];
-}
-
-- (void)resetInitialButtons {
-    [_fullConstraint uninstall];
-    [_fullConstraint install];
-    
-    _openButton.alpha = 1.0f;
-    _regionButton.alpha = 0.0f;
 }
 
 #pragma mark - Map
@@ -158,7 +137,7 @@
     __weak MapViewController *weakSelf = self;
     [SPClient fetchMessagesForFeed:_feed completion:^(NSError *error, NSArray *messages) {
         if (error || messages.count == 0) {
-            [weakSelf resetInitialButtons];
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"There is a problem loading the feed's data. It's possible that no messages are available.", @"There is a problem loading the feed's data. It's possible that no messages are available.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok") otherButtonTitles:nil] show];
         } else if (!error && messages.count > 0) {
             [weakSelf processMessages:messages];
         }

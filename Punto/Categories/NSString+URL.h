@@ -10,4 +10,5 @@
 - (BOOL)isValidURL;
 
 - (NSString *)formatWithToken;
+- (NSString *)extractToken;
 @end

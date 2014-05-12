@@ -17,7 +17,7 @@
 
 #import "NSString+URL.h"
 
-@interface FeedTableViewController ()
+@interface FeedTableViewController () <UIAlertViewDelegate>
 @end
 
 @implementation FeedTableViewController
@@ -37,9 +37,9 @@
     if (_feed) {
         self.title = NSLocalizedString(@"Edit feed", @"Edit feed");
     } else {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(didPressCancel:)];
         self.title = NSLocalizedString(@"New feed", @"New feed");
     }
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(didPressCancel:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(didPressSave:)];
     
     [self.tableView reloadData];
@@ -82,14 +82,12 @@
                 }
                 feed.name = [self name];
                 feed.link = [self link];
+                feed.uniqueIdentifier = [[self link] extractToken];
                 feed.notifyValue = [self notify];
             }];
             
-            if (_feed) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            } else {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
@@ -97,23 +95,42 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return _feed ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 2 : 1;
+    return section == 0 ? 3 : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.row == 2) {
         return [self cellForSwitch:indexPath];
-    } else {
+    } else if (indexPath.section == 0) {
         return [self cellForText:indexPath];
+    } else {
+        return [self cellForButton:indexPath];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[tableView cellForRowAtIndexPath:indexPath] becomeFirstResponder];
+    if (indexPath.section == 0) {
+        [[tableView cellForRowAtIndexPath:indexPath] becomeFirstResponder];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Delete feed", @"Delete feed") message:NSLocalizedString(@"Are you sure you want to delete the current feed?", @"Are you sure you want to delete the current feed?") delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"No") otherButtonTitles:NSLocalizedString(@"Delete", @"Delete"), nil] show];
+    }
+}
+
+#pragma mark - Alert
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+            Feed *localFeed = [_feed MR_inContext:localContext];
+            [localFeed MR_deleteInContext:localContext];
+        }];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - Validation
@@ -145,6 +162,19 @@
 }
 
 #pragma mark - Cells
+
+- (UITableViewCell *)cellForButton:(NSIndexPath *)indexPath {
+    static NSString *ButtonCellIdentifier = @"ButtonCell";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:ButtonCellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ButtonCellIdentifier];
+        cell.backgroundColor = [UIColor redColor];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    cell.textLabel.text = NSLocalizedString(@"Delete feed", @"Delete feed");
+    return cell;
+}
 
 - (UITableViewCell *)cellForText:(NSIndexPath *)indexPath {
     static NSString *TextCellIdentifier = @"TextCell";

@@ -8,22 +8,42 @@
 
 #import "FeedsTableViewController.h"
 #import "FeedTableViewController.h"
+#import "MapViewController.h"
 
 #import "Feed.h"
 
-@interface FeedsTableViewController ()
+#import "FeedCollectionViewCell.h"
+
+#import "FeedCollectionViewlayout.h"
+
+@interface FeedsTableViewController () <UIGestureRecognizerDelegate>
 @end
 
 @implementation FeedsTableViewController {
     NSMutableArray *_feeds;
 }
 
+#pragma mark - View
+
++ (id)new {
+    return [[self alloc] initWithCollectionViewLayout:[FeedCollectionViewlayout new]];
+}
+
++ (CGSize)deviceItemSize {
+    return CGSizeMake(0, 0);
+}
+
+#pragma mark - View
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.collectionView registerClass:[FeedCollectionViewCell class] forCellWithReuseIdentifier:@"FeedCell"];
     
-    self.tableView.allowsSelectionDuringEditing = YES;
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
+    gesture.minimumPressDuration = .5;
+    gesture.delegate = self;
+    [self.collectionView addGestureRecognizer:gesture];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataChanged:) name:kDataChangedNotification object:nil];
 }
@@ -32,8 +52,6 @@
     [super viewWillAppear:animated];
     
     self.title = NSLocalizedString(@"My Spots", @"My Spots");
-    
-    [self setLeftBarButtonItem:animated];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
 }
@@ -44,21 +62,22 @@
     return NO;
 }
 
+#pragma mark - Gestures
+
+- (void)longTap:(UIGestureRecognizer *)gesture {
+    CGPoint point = [gesture locationInView:self.collectionView];
+    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
+    if (indexPath && indexPath.row < _feeds.count) {
+        Feed *feed = _feeds[indexPath.row];
+        [self presentFeedController:feed];
+    }
+}
+
 #pragma mark - Notifications
 
 - (void)dataChanged:(NSNotification *)notification {
     _feeds = [Feed MR_findAllSortedBy:@"name" ascending:YES].mutableCopy;
-    [self.tableView reloadData];
-}
-
-#pragma mark - Actions
-
-- (void)didPressClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)didPressAdd:(id)sender {
-    [self presentFeedController:nil];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - Feed
@@ -66,69 +85,41 @@
 - (void)presentFeedController:(Feed *)feed {
     FeedTableViewController *feedController = [FeedTableViewController new];
     feedController.feed = feed;
-    if (feed) {
-        [self.navigationController pushViewController:feedController animated:YES];
-    } else {
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
-        navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-        [self presentViewController:navigationController animated:YES completion:nil];
-    }
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedController];
+    navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)presentMapController:(Feed *)feed {
+    MapViewController *controller = [MapViewController new];
+    controller.feed = feed;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _feeds.count;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _feeds.count + 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *FeedCellIdentifier = @"FeedCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FeedCellIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:FeedCellIdentifier];
-        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.accessoryType = UITableViewCellAccessoryNone;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    FeedCollectionViewCell *cell = (FeedCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
+    
+    if (indexPath.row == _feeds.count) {
+        [cell setLabelText:@"+"];
+    } else {
+        Feed *feed = _feeds[indexPath.row];
+        [cell setLabelText:feed.name];
     }
-    Feed *feed = _feeds[indexPath.row];
-    cell.textLabel.text = feed.name;
-    cell.detailTextLabel.text = [feed.lastUpdated description];
+
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.editing) {
-        [self presentFeedController:_feeds[indexPath.row]];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == _feeds.count) {
+        [self presentFeedController:nil];
     } else {
-        if (_delegate) [_delegate feedsController:self didSelectFeed:_feeds[indexPath.row]];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Feed *feed = _feeds[indexPath.row];
-        [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-            Feed *localFeed = [feed MR_inContext:localContext];
-            [localFeed MR_deleteInContext:localContext];
-        }];
-        [_feeds removeObjectAtIndex:indexPath.row];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
-
-#pragma mark - Editing
-
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
-    [super setEditing:editing animated:animated];
-    
-    [self setLeftBarButtonItem:animated];
-}
-
-- (void)setLeftBarButtonItem:(BOOL)animated {
-    if (self.tableView.editing) {
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(didPressAdd:)] animated:animated];
-    } else {
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"Close") style:UIBarButtonItemStylePlain target:self action:@selector(didPressClose:)] animated:animated];
+        [self presentMapController:_feeds[indexPath.row]];
     }
 }
 

@@ -16,6 +16,7 @@
 #import "Feed.h"
 
 #import "MapViewController.h"
+#import "FeedsTableViewController.h"
 
 #import "SPBarNotification.h"
 
@@ -36,7 +37,8 @@
     [self setAppearances];
     
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    _window.rootViewController = [MapViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[FeedsTableViewController new]];
+    _window.rootViewController = navigationController;
     [_window makeKeyAndVisible];
     
     return YES;
@@ -56,8 +58,10 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
-    [mapViewcontroller performFetch];
+    UINavigationController *controller = (UINavigationController *)_window.rootViewController;
+    if ([controller.topViewController isKindOfClass:[MapViewController class]]) {
+        [((MapViewController *)controller.topViewController) performFetch];
+    }
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -67,8 +71,13 @@
     Feed *feed = [Feed MR_findFirstByAttribute:@"uniqueIdentifier" withValue:identifier];
     if (IsEmpty(feed)) return;
     
-    MapViewController *mapViewcontroller = (MapViewController *)_window.rootViewController;
-    [mapViewcontroller feedsController:nil didSelectFeed:feed];
+    UINavigationController *controller = (UINavigationController *)_window.rootViewController;
+    if ([controller.topViewController isKindOfClass:[MapViewController class]]) {
+        ((MapViewController *)controller.topViewController).feed = feed;
+        [((MapViewController *)controller.topViewController) processFeed];
+    } else if ([controller.topViewController isKindOfClass:[FeedsTableViewController class]]) {
+        [((FeedsTableViewController *)controller.topViewController) presentMapController:feed];
+    }
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {

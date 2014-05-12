@@ -8,6 +8,11 @@
 
 #import "FeedsTableViewController.h"
 
-@interface MapViewController : UIViewController <FeedsTableViewControllerDelegate>
+@class Feed;
+
+@interface MapViewController : UIViewController
+@property (nonatomic, strong) Feed *feed;
+
 - (void)performFetch;
+- (void)processFeed;
 @end
