@@ -109,6 +109,10 @@
 #pragma mark - Appearances
 
 - (void)setAppearances {
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.373 green:0.396 blue:0.451 alpha:1.000]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.925 alpha:1.000]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f] }];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:16.0f] } forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-1000, -1000) forBarMetrics:UIBarMetricsDefault];
 }
 

@@ -38,6 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.barStyle = UIStatusBarStyleLightContent;
+    
+    self.collectionView.backgroundColor = [UIColor colorWithWhite:0.925 alpha:1.000];
     [self.collectionView registerClass:[FeedCollectionViewCell class] forCellWithReuseIdentifier:@"FeedCell"];
     
     UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
@@ -56,7 +59,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kDataChangedNotification object:nil];
 }
 
-#pragma mark - Layout
+#pragma mark - Status bar
 
 - (BOOL)prefersStatusBarHidden {
     return NO;

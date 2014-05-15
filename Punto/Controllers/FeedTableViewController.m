@@ -34,6 +34,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    self.navigationController.navigationBar.barStyle = UIStatusBarStyleLightContent;
+    
     if (_feed) {
         self.title = NSLocalizedString(@"Edit feed", @"Edit feed");
     } else {
@@ -48,7 +50,7 @@
     [cell becomeFirstResponder];
 }
 
-#pragma mark - Layout
+#pragma mark - Status bar
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
